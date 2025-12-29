@@ -1,0 +1,72 @@
+namespace EcomBackend.Application.DTOs;
+
+public record ProductDto(
+    Guid Id,
+    string Name,
+    decimal Price,
+    string Description,
+    string ShortDescription,
+    string Category,
+    string Image,
+    List<string> Images,
+    bool BestSeller,
+    bool IsPromoted,
+    bool IsActive,
+    int Stock,
+    string Marque,
+    string Modele,
+    string Dimension,
+    string Genre,
+    string Freinage,
+    string SystemeD,
+    string DimensionCaisseChargement,
+    string BoiteVitesse,
+    string SpecificationTechnique,
+    DateTime CreatedAt
+);
+
+public record CreateProductDto(
+    string Name,
+    decimal Price,
+    string Description,
+    string ShortDescription,
+    string Category,
+    string Image,
+    List<string>? Images,
+    bool BestSeller,
+    bool IsPromoted,
+    bool IsActive,
+    int Stock,
+    string Marque,
+    string Modele,
+    string Dimension,
+    string Genre,
+    string Freinage,
+    string SystemeD,
+    string DimensionCaisseChargement,
+    string BoiteVitesse,
+    string SpecificationTechnique
+);
+
+public record UpdateProductDto(
+    string Name,
+    decimal Price,
+    string Description,
+    string ShortDescription,
+    string Category,
+    string Image,
+    List<string>? Images,
+    bool BestSeller,
+    bool IsPromoted,
+    bool IsActive,
+    int Stock,
+    string Marque,
+    string Modele,
+    string Dimension,
+    string Genre,
+    string Freinage,
+    string SystemeD,
+    string DimensionCaisseChargement,
+    string BoiteVitesse,
+    string SpecificationTechnique
+);

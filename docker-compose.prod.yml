@@ -1,0 +1,59 @@
+services:
+  backend-api:
+    build:
+      context: ./backend-api
+      dockerfile: Dockerfile
+    container_name: ecom-backend-api
+    ports:
+      - "5001:8080"
+    volumes:
+      - ./backend-api/src/EcomBackend.Api/wwwroot:/app/wwwroot
+      - ./backend-api/src/EcomBackend.Api/appsettings.Production.json:/app/appsettings.Production.json:ro
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    networks:
+      - ecom-network
+
+  admin-ecom:
+    build:
+      context: ./admin-ecom
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com
+    container_name: ecom-admin
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com
+    depends_on:
+      - backend-api
+    restart: always
+    networks:
+      - ecom-network
+
+  e-com:
+    build:
+      context: ./e-com
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com
+    container_name: ecom-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com
+    depends_on:
+      - backend-api
+    restart: always
+    networks:
+      - ecom-network
+
+networks:
+  ecom-network:
+    driver: bridge
