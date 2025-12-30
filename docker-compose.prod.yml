@@ -44,13 +44,13 @@ services:
       context: ./admin-ecom
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com
+        - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com/api
     container_name: ecom-admin
     ports:
       - "3001:3000"
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com
+      - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com/api
     depends_on:
       - backend-api
     restart: always
@@ -62,13 +62,13 @@ services:
       context: ./e-com
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com
+        - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com/api
     container_name: ecom-frontend
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com
+      - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com/api
     depends_on:
       - backend-api
     restart: always
