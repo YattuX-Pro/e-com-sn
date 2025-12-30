@@ -199,13 +199,13 @@ setup_ssl() {
         log_info "Génération des certificats pour les domaines..."
         
         # Certificat pour le frontend
-        certbot --nginx -d yoobouko-hasilazamotor.com -d www.yoobouko-hasilazamotor.com --non-interactive --agree-tos --email votre-email@example.com || true
+        certbot --nginx -d yoobouko-hasilazamotor.com -d www.yoobouko-hasilazamotor.com --non-interactive --agree-tos --email contact.hasilaza@gmail.com || true
         
         # Certificat pour l'API
-        certbot --nginx -d api.yoobouko-hasilazamotor.com --non-interactive --agree-tos --email votre-email@example.com || true
+        certbot --nginx -d api.yoobouko-hasilazamotor.com --non-interactive --agree-tos --email contact.hasilaza@gmail.com || true
         
         # Certificat pour l'admin
-        certbot --nginx -d admin.yoobouko-hasilazamotor.com --non-interactive --agree-tos --email votre-email@example.com || true
+        certbot --nginx -d admin.yoobouko-hasilazamotor.com --non-interactive --agree-tos --email contact.hasilaza@gmail.com || true
         
         # Configurer le renouvellement automatique
         systemctl enable certbot.timer
