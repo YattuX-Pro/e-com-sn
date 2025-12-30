@@ -6,9 +6,18 @@
 set -e
 
 # Configuration
-APP_DIR="/opt/hasilaza-motor"
-REPO_URL="https://github.com/YattuX-Pro/e-com-sn.git"  # À MODIFIER
-BRANCH="main"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Détecter si on est déjà dans le dépôt
+if [ -d "$PROJECT_ROOT/.git" ]; then
+    APP_DIR="$PROJECT_ROOT"
+    log_info "Utilisation du dépôt local: $APP_DIR"
+else
+    APP_DIR="/opt/hasilaza-motor"
+    REPO_URL="https://github.com/YattuX-Pro/e-com-sn.git"
+    BRANCH="main"
+fi
 
 # Couleurs pour les logs
 RED='\033[0;31m'
@@ -78,7 +87,11 @@ install_dependencies() {
 setup_repository() {
     log_info "Configuration du repository..."
     
-    if [ -d "$APP_DIR" ]; then
+    # Si on utilise déjà le dépôt local, pas besoin de cloner
+    if [ "$APP_DIR" = "$PROJECT_ROOT" ]; then
+        log_info "Utilisation du code local (pas de clonage nécessaire)"
+        cd "$APP_DIR"
+    elif [ -d "$APP_DIR" ]; then
         log_info "Mise à jour du code existant..."
         cd "$APP_DIR"
         git fetch origin
