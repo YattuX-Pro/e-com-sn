@@ -161,8 +161,14 @@ deploy_docker() {
 setup_nginx() {
     log_info "Configuration de Nginx..."
     
-    # Copier la configuration
-    cp "$APP_DIR/deployment/nginx.conf" /etc/nginx/sites-available/hasilaza-motor
+    # Vérifier si les certificats SSL existent
+    if [ -f "/etc/letsencrypt/live/yoobouko-hasilazamotor.com/fullchain.pem" ]; then
+        log_info "Certificats SSL trouvés, utilisation de la configuration HTTPS..."
+        cp "$APP_DIR/deployment/nginx.conf" /etc/nginx/sites-available/hasilaza-motor
+    else
+        log_warning "Certificats SSL non trouvés, utilisation de la configuration HTTP..."
+        cp "$APP_DIR/deployment/nginx-http.conf" /etc/nginx/sites-available/hasilaza-motor
+    fi
     
     # Créer le lien symbolique
     ln -sf /etc/nginx/sites-available/hasilaza-motor /etc/nginx/sites-enabled/
@@ -206,11 +212,22 @@ setup_ssl() {
         systemctl start certbot.timer
         
         log_success "Certificats SSL générés"
+        
+        # Passer à la configuration HTTPS
+        log_info "Passage à la configuration HTTPS..."
+        cp "$APP_DIR/deployment/nginx.conf" /etc/nginx/sites-available/hasilaza-motor
+        nginx -t && systemctl reload nginx
+        
+        log_success "Configuration HTTPS activée"
     else
         log_warning "Certificats SSL non générés. Exécutez manuellement:"
         echo "  certbot --nginx -d yoobouko-hasilazamotor.com -d www.yoobouko-hasilazamotor.com"
         echo "  certbot --nginx -d api.yoobouko-hasilazamotor.com"
         echo "  certbot --nginx -d admin.yoobouko-hasilazamotor.com"
+        echo ""
+        echo "Puis relancez la configuration Nginx avec la configuration HTTPS:"
+        echo "  cp $APP_DIR/deployment/nginx.conf /etc/nginx/sites-available/hasilaza-motor"
+        echo "  nginx -t && systemctl reload nginx"
     fi
 }
 
