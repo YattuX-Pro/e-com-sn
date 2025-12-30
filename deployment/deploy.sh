@@ -9,16 +9,6 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-# Détecter si on est déjà dans le dépôt
-if [ -d "$PROJECT_ROOT/.git" ]; then
-    APP_DIR="$PROJECT_ROOT"
-    log_info "Utilisation du dépôt local: $APP_DIR"
-else
-    APP_DIR="/opt/hasilaza-motor"
-    REPO_URL="https://github.com/YattuX-Pro/e-com-sn.git"
-    BRANCH="main"
-fi
-
 # Couleurs pour les logs
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -48,6 +38,15 @@ check_root() {
         exit 1
     fi
 }
+
+# Détecter si on est déjà dans le dépôt
+if [ -d "$PROJECT_ROOT/.git" ]; then
+    APP_DIR="$PROJECT_ROOT"
+else
+    APP_DIR="/opt/hasilaza-motor"
+    REPO_URL="https://github.com/YattuX-Pro/e-com-sn.git"
+    BRANCH="main"
+fi
 
 install_dependencies() {
     log_info "Installation des dépendances système..."
