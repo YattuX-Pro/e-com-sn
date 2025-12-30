@@ -1,4 +1,24 @@
 services:
+  postgres:
+    image: postgres:15
+    container_name: ecom-postgres
+    environment:
+      POSTGRES_DB: hasilaza_db
+      POSTGRES_USER: hasilaza_user_admin
+      POSTGRES_PASSWORD: H@siLaz@.2025
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - ecom-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hasilaza_user_admin -d hasilaza_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   backend-api:
     build:
       context: ./backend-api
@@ -12,9 +32,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-      - "host.docker.internal:172.17.0.1"
+    depends_on:
+      postgres:
+        condition: service_healthy
     restart: always
     networks:
       - ecom-network
@@ -58,3 +78,6 @@ services:
 networks:
   ecom-network:
     driver: bridge
+
+volumes:
+  postgres_data:
