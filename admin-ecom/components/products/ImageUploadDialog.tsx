@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Upload, X, Image as ImageIcon, Loader2, RefreshCw, Trash2, Plus } from "lucide-react"
+import { API_URL, getImageUrl } from "@/lib/config"
 
 interface ImageUploadDialogProps {
   open: boolean
@@ -110,7 +111,7 @@ export function ImageUploadDialog({
       // Étape 1: Supprimer les images marquées
       if (imagesToDelete.length > 0) {
         setUploadProgress(`Suppression de ${imagesToDelete.length} image(s)...`)
-        const deleteResponse = await fetch(`http://localhost:5001/api/products/${productId}/images/delete`, {
+        const deleteResponse = await fetch(`${API_URL}/products/${productId}/images/delete`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -141,7 +142,7 @@ export function ImageUploadDialog({
         }
 
         setUploadProgress("Envoi au serveur...")
-        const uploadResponse = await fetch(`http://localhost:5001/api/products/${productId}/images`, {
+        const uploadResponse = await fetch(`${API_URL}/products/${productId}/images`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -194,7 +195,7 @@ export function ImageUploadDialog({
             <div className="flex gap-4">
               {currentImage && (
                 <div className="relative w-32 h-32 border-2 rounded-lg overflow-hidden">
-                  <img src={`http://localhost:5001${currentImage}`} alt="Actuelle" className="w-full h-full object-cover" />
+                  <img src={getImageUrl(currentImage)} alt="Actuelle" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white text-xs font-semibold">
                     Actuelle
                   </div>
@@ -262,7 +263,7 @@ export function ImageUploadDialog({
                       <div key={idx} className={`relative w-20 h-20 border-2 rounded-lg overflow-hidden transition-all ${
                         isMarkedForDeletion ? 'border-destructive opacity-50' : 'border-border'
                       }`}>
-                        <img src={`http://localhost:5001${img}`} alt={`Détail ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img src={getImageUrl(img)} alt={`Détail ${idx + 1}`} className="w-full h-full object-cover" />
                         {isMarkedForDeletion ? (
                           <div className="absolute inset-0 bg-destructive/80 flex flex-col items-center justify-center">
                             <Trash2 className="size-4 text-white mb-1" />
