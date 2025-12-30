@@ -11,8 +11,8 @@ echo "=========================================="
 
 # Variables - À MODIFIER AVANT EXÉCUTION
 DB_NAME="hasilaza_db"
-DB_USER="hasilaza_user"
-DB_PASSWORD="VOTRE_MOT_DE_PASSE_SECURISE"  # CHANGEZ CE MOT DE PASSE !
+DB_USER="hasilaza_user_admin"
+DB_PASSWORD="H@siLaz@.2025"  # CHANGEZ CE MOT DE PASSE !
 
 # Mise à jour du système
 echo "[1/6] Mise à jour du système..."

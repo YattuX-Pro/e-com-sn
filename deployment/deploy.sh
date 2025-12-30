@@ -7,7 +7,7 @@ set -e
 
 # Configuration
 APP_DIR="/opt/hasilaza-motor"
-REPO_URL="https://github.com/VOTRE_USERNAME/e-com-sn.git"  # À MODIFIER
+REPO_URL="https://github.com/YattuX-Pro/e-com-sn.git"  # À MODIFIER
 BRANCH="main"
 
 # Couleurs pour les logs
@@ -33,7 +33,6 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Vérifier si l'utilisateur est root
 check_root() {
     if [[ $EUID -ne 0 ]]; then
         log_error "Ce script doit être exécuté en tant que root (sudo)"
@@ -41,7 +40,6 @@ check_root() {
     fi
 }
 
-# Installation des dépendances système
 install_dependencies() {
     log_info "Installation des dépendances système..."
     
