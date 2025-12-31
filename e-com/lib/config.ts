@@ -1,26 +1,40 @@
 // Configuration centralisée pour les URLs
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
+// URL de l'API backend (avec /api pour les endpoints)
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
 
-// URL de base sans /api pour les images et fichiers statiques
-export const API_URL = API_BASE_URL
-export const STATIC_URL = API_BASE_URL.replace('/api', '')
+// URL statique pour les fichiers (images, etc.) - toujours pointer vers api.yoobouko-hasilazamotor.com
+const STATIC_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://api.yoobouko-hasilazamotor.com'
+  : 'http://localhost:5001'
 
 // Helper pour construire les URLs d'images
-export const getImageUrl = (path: string) => {
-  if (!path) return ''
+export const getImageUrl = (path: string): string => {
+  if (!path) return '/placeholder.jpg'
   
-  // Si c'est déjà une URL complète, la retourner telle quelle
+  // Si c'est déjà une URL complète vers notre API, la retourner
+  if (path.startsWith('https://api.yoobouko-hasilazamotor.com')) {
+    return path
+  }
+  
+  // Si c'est une autre URL complète, la retourner telle quelle
   if (path.startsWith('http://') || path.startsWith('https://')) {
     return path
   }
   
-  // Nettoyer le chemin : enlever les points, espaces et caractères bizarres au début
-  let cleanPath = path.trim().replace(/^[.\s]+/, '')
+  // Nettoyer le chemin : garder seulement /products/... ou le chemin relatif
+  let cleanPath = path
   
-  // S'assurer que le chemin commence par /
-  if (!cleanPath.startsWith('/')) {
-    cleanPath = `/${cleanPath}`
+  // Enlever tout ce qui précède /products/ si présent
+  const productsIndex = path.indexOf('/products/')
+  if (productsIndex !== -1) {
+    cleanPath = path.substring(productsIndex)
+  } else {
+    // Sinon, nettoyer les caractères bizarres au début
+    cleanPath = path.replace(/^[.\s]+/, '').replace(/^[^/]*\/products/, '/products')
+    if (!cleanPath.startsWith('/')) {
+      cleanPath = `/${cleanPath}`
+    }
   }
   
-  return `${STATIC_URL}${cleanPath}`
+  return `${STATIC_BASE_URL}${cleanPath}`
 }

@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
 
 export interface Product {
   id: string
@@ -49,25 +49,25 @@ export interface Order {
 
 export const productsApi = {
   async getBestSellers(): Promise<Product[]> {
-    const response = await fetch(`${API_BASE_URL}/api/products/bestsellers`)
+    const response = await fetch(`${API_BASE_URL}/products/bestsellers`)
     if (!response.ok) throw new Error('Failed to fetch bestsellers')
     return response.json()
   },
 
   async getPromoted(): Promise<Product[]> {
-    const response = await fetch(`${API_BASE_URL}/api/products/promoted`)
+    const response = await fetch(`${API_BASE_URL}/products/promoted`)
     if (!response.ok) throw new Error('Failed to fetch promoted products')
     return response.json()
   },
 
   async getAll(): Promise<Product[]> {
-    const response = await fetch(`${API_BASE_URL}/api/products`)
+    const response = await fetch(`${API_BASE_URL}/products`)
     if (!response.ok) throw new Error('Failed to fetch products')
     return response.json()
   },
 
   async getById(id: string): Promise<Product> {
-    const response = await fetch(`${API_BASE_URL}/api/products/${id}`)
+    const response = await fetch(`${API_BASE_URL}/products/${id}`)
     if (!response.ok) throw new Error('Failed to fetch product')
     return response.json()
   }
@@ -80,7 +80,7 @@ export interface Category {
 
 export const categoriesApi = {
   async getAll(): Promise<Category[]> {
-    const response = await fetch(`${API_BASE_URL}/api/categories`)
+    const response = await fetch(`${API_BASE_URL}/categories`)
     if (!response.ok) throw new Error('Failed to fetch categories')
     return response.json()
   }
@@ -88,7 +88,7 @@ export const categoriesApi = {
 
 export const ordersApi = {
   async create(order: CreateOrder): Promise<Order> {
-    const response = await fetch(`${API_BASE_URL}/api/orders`, {
+    const response = await fetch(`${API_BASE_URL}/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
