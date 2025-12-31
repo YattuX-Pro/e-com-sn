@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
 import { productsApi, Product } from "@/lib/api"
+import { getImageUrl } from "@/lib/config"
 
 const bgColor = "rgba(30, 64, 175, 0.75)" // Bleu foncé (blue-800)
 
@@ -236,7 +237,7 @@ export default function HeroSection() {
                       className="relative w-full h-full"
                     >
                       <Image
-                        src={currentProduct.image.startsWith('http') ? currentProduct.image : `http://localhost:5001${currentProduct.image}`}
+                        src={getImageUrl(currentProduct.image)}
                         alt={currentProduct.name}
                         fill
                         className="object-cover"

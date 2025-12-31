@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { formatPrice } from "@/lib/data"
+import { getImageUrl } from "@/lib/config"
 
 interface Product {
   id: string
@@ -42,7 +43,7 @@ export default function ProductList({ products }: ProductListProps) {
               {/* Image */}
               <div className="relative w-40 md:w-56 aspect-square shrink-0 bg-slate-100 dark:bg-slate-800">
                 <Image
-                  src={product.image.startsWith('http') ? product.image : `http://localhost:5001${product.image}`}
+                  src={getImageUrl(product.image)}
                   alt={product.name}
                   fill
                   className="object-cover"

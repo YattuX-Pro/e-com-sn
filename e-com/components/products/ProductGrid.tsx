@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { formatPrice } from "@/lib/data"
+import { getImageUrl } from "@/lib/config"
 
 interface Product {
   id: string
@@ -41,7 +42,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
               {/* Image */}
               <div className="relative aspect-[4/3] overflow-hidden bg-slate-100 dark:bg-slate-800">
                 <Image
-                  src={product.image.startsWith('http') ? product.image : `http://localhost:5001${product.image}`}
+                  src={getImageUrl(product.image)}
                   alt={product.name}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"

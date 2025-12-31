@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { formatPrice } from "@/lib/data"
 import Image from "next/image"
 import Link from "next/link"
+import { getImageUrl } from "@/lib/config"
 
 interface OrderSuccessProps {
   productName: string
@@ -34,7 +35,7 @@ export default function OrderSuccess({ productName, productImage, quantity, tota
           <div className="flex items-center gap-3 mb-3">
             <div className="w-12 h-12 rounded-lg bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
               <Image 
-                src={productImage.startsWith('http') ? productImage : `http://localhost:5001${productImage}`} 
+                src={getImageUrl(productImage)} 
                 alt="" 
                 fill 
                 className="object-cover" 

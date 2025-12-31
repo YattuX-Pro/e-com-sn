@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { formatPrice } from "@/lib/data"
 import Image from "next/image"
+import { getImageUrl } from "@/lib/config"
 
 interface OrderForm {
   nom: string
@@ -134,7 +135,7 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
           <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-br from-blue-50 to-slate-50 dark:from-blue-950/20 dark:to-slate-800 mb-6 border border-blue-100 dark:border-blue-900/30">
             <div className="w-16 h-16 rounded-xl bg-white dark:bg-slate-700 relative overflow-hidden shrink-0 shadow-sm">
               <Image 
-                src={product.image.startsWith('http') ? product.image : `http://localhost:5001${product.image}`} 
+                src={getImageUrl(product.image)} 
                 alt="" 
                 fill 
                 className="object-cover" 

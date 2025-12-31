@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import { productsApi, Product, ordersApi } from "@/lib/api"
 import { formatPrice } from "@/lib/data"
+import { getImageUrl } from "@/lib/config"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Navbar from "@/components/Navbar"
@@ -87,8 +88,8 @@ export default function ProductDetailPage() {
   }
 
   const productImages = product.images && product.images.length > 0 
-    ? product.images.map(img => img.startsWith('http') ? img : `http://localhost:5001${img}`)
-    : [product.image.startsWith('http') ? product.image : `http://localhost:5001${product.image}`]
+    ? product.images.map(img => getImageUrl(img))
+    : [getImageUrl(product.image)]
 
   const handleOrderSubmit = async (formData: OrderForm) => {
     try {
