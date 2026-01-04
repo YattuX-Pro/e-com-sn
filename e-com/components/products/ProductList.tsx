@@ -40,42 +40,40 @@ export default function ProductList({ products }: ProductListProps) {
         >
           <Link href={`/produit/${product.id}`} className="group block">
             <div className="bg-white dark:bg-slate-900 rounded-xl overflow-hidden border-2 border-blue-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-slate-700 transition-all hover:shadow-md flex">
-              {/* Image */}
-              <div className="relative w-40 md:w-56 aspect-square shrink-0 bg-slate-100 dark:bg-slate-800">
+              <div className="relative w-32 sm:w-40 md:w-56 aspect-square shrink-0 bg-slate-100 dark:bg-slate-800">
                 <Image
                   src={getImageUrl(product.image)}
                   alt={product.name}
                   fill
                   className="object-cover"
-                  sizes="200px"
+                  sizes="(max-width: 640px) 128px, 200px"
                 />
                 {product.bestSeller && (
-                  <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-amber-400 text-amber-900 text-[10px] font-bold">
+                  <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-amber-400 text-amber-900 text-xs font-bold">
                     Best
                   </div>
                 )}
               </div>
-              {/* Info */}
-              <div className="flex-1 p-4 flex flex-col justify-between bg-blue-50 dark:bg-slate-900">
+              <div className="flex-1 p-3 sm:p-4 flex flex-col justify-between bg-blue-50 dark:bg-slate-900">
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-medium text-blue-400 dark:text-blue-400">{product.category}</span>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="text-xs font-medium text-blue-500 dark:text-blue-400">{product.category}</span>
                     <span className="text-xs text-slate-400">•</span>
-                    <span className="text-xs text-slate-500">{product.stock} en stock</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">{product.stock} en stock</span>
                   </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-blue-500 transition-colors">
+                  <h3 className="font-semibold text-base sm:text-lg text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-500 transition-colors line-clamp-1">
                     {product.name}
                   </h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-3">
                     {product.shortDescription}
                   </p>
                 </div>
-                <div className="flex items-center justify-between mt-3">
-                  <span className="text-xl font-bold text-slate-900 dark:text-white">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
                     {formatPrice(product.price)}
                   </span>
-                  <Button size="sm" className="bg-blue-500 hover:bg-blue-600 text-white">
-                    Voir le produit
+                  <Button size="sm" className="bg-blue-500 hover:bg-blue-600 text-white text-xs sm:text-sm shrink-0">
+                    Voir
                   </Button>
                 </div>
               </div>

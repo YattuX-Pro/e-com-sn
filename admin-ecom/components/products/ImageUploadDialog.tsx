@@ -64,7 +64,6 @@ export function ImageUploadDialog({
     if (e.target.files) {
       const files = Array.from(e.target.files)
       
-      // Calculer le nombre total d'images après ajout
       const currentImagesCount = currentImages.length - imagesToDelete.length
       const totalAfterUpload = currentImagesCount + files.length
       
@@ -125,7 +124,6 @@ export function ImageUploadDialog({
         }
       }
 
-      // Étape 2: Uploader les nouvelles images
       if (mainImageFile || detailImageFiles.length > 0) {
         const formData = new FormData()
         

@@ -22,6 +22,9 @@ interface Product {
   dimensionCaisseChargement: string
   boiteVitesse: string
   specificationTechnique: string
+  capaciteCharge: string
+  typeCarburant: string
+  etat: string
   bestSeller: boolean
   isPromoted: boolean
 }
@@ -82,6 +85,18 @@ export default function ProductInfo({ product, onOrderClick }: ProductInfoProps)
           <div className="flex justify-between items-center py-3 px-4 rounded-lg bg-white dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors">
             <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Boîte de Vitesse</span>
             <span className="text-sm font-bold text-slate-900 dark:text-white">{product.boiteVitesse || '-'}</span>
+          </div>
+          <div className="flex justify-between items-center py-3 px-4 rounded-lg bg-white dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors">
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Capacité de charge</span>
+            <span className="text-sm font-bold text-slate-900 dark:text-white">{product.capaciteCharge || '-'}</span>
+          </div>
+          <div className="flex justify-between items-center py-3 px-4 rounded-lg bg-white dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors">
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Type de carburant</span>
+            <span className="text-sm font-bold text-slate-900 dark:text-white">{product.typeCarburant || '-'}</span>
+          </div>
+          <div className="flex justify-between items-center py-3 px-4 rounded-lg bg-white dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors">
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">État</span>
+            <span className="text-sm font-bold text-slate-900 dark:text-white">{product.etat || '-'}</span>
           </div>
           <div className="py-3 px-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
             <span className="text-sm font-medium text-blue-700 dark:text-blue-400 block mb-2">Spécifications Complètes</span>

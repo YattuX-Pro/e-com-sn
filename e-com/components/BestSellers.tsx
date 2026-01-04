@@ -45,7 +45,7 @@ export default function BestSellers() {
   const displayedProducts = bestSellers.slice(0, 6)
 
   return (
-    <section className="py-20 md:py-10 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
+    <section id="catalogue" className="py-20 md:py-10 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 

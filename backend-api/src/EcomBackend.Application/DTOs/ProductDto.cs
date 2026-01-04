@@ -22,6 +22,9 @@ public record ProductDto(
     string DimensionCaisseChargement,
     string BoiteVitesse,
     string SpecificationTechnique,
+    string CapaciteCharge,
+    string TypeCarburant,
+    string Etat,
     DateTime CreatedAt
 );
 
@@ -45,7 +48,10 @@ public record CreateProductDto(
     string SystemeD,
     string DimensionCaisseChargement,
     string BoiteVitesse,
-    string SpecificationTechnique
+    string SpecificationTechnique,
+    string CapaciteCharge,
+    string TypeCarburant,
+    string Etat
 );
 
 public record UpdateProductDto(
@@ -68,5 +74,8 @@ public record UpdateProductDto(
     string SystemeD,
     string DimensionCaisseChargement,
     string BoiteVitesse,
-    string SpecificationTechnique
+    string SpecificationTechnique,
+    string CapaciteCharge,
+    string TypeCarburant,
+    string Etat
 );

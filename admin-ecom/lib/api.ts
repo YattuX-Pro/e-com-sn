@@ -41,6 +41,9 @@ export interface Product {
   dimensionCaisseChargement: string;
   boiteVitesse: string;
   specificationTechnique: string;
+  capaciteCharge: string;
+  typeCarburant: string;
+  etat: string;
   createdAt: string;
 }
 

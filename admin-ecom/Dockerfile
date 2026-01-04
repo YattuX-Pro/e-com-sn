@@ -8,9 +8,11 @@ RUN npm install
 
 COPY . .
 
-# Argument de build pour l'URL de l'API
+# Arguments de build pour les URLs
 ARG NEXT_PUBLIC_API_URL=http://localhost:5001/api
+ARG NEXT_PUBLIC_STATIC_URL=http://localhost:5001
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ENV NEXT_PUBLIC_STATIC_URL=${NEXT_PUBLIC_STATIC_URL}
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build

@@ -152,7 +152,10 @@ public class ProductService : IProductService
             SystemeD = dto.SystemeD,
             DimensionCaisseChargement = dto.DimensionCaisseChargement,
             BoiteVitesse = dto.BoiteVitesse,
-            SpecificationTechnique = dto.SpecificationTechnique
+            SpecificationTechnique = dto.SpecificationTechnique,
+            CapaciteCharge = dto.CapaciteCharge,
+            TypeCarburant = dto.TypeCarburant,
+            Etat = dto.Etat
         };
 
         await _productRepository.AddAsync(product);
@@ -187,6 +190,9 @@ public class ProductService : IProductService
         product.DimensionCaisseChargement = dto.DimensionCaisseChargement;
         product.BoiteVitesse = dto.BoiteVitesse;
         product.SpecificationTechnique = dto.SpecificationTechnique;
+        product.CapaciteCharge = dto.CapaciteCharge;
+        product.TypeCarburant = dto.TypeCarburant;
+        product.Etat = dto.Etat;
 
         await _productRepository.UpdateAsync(product);
         await _unitOfWork.SaveChangesAsync();
@@ -237,6 +243,9 @@ public class ProductService : IProductService
             product.DimensionCaisseChargement,
             product.BoiteVitesse,
             product.SpecificationTechnique,
+            product.CapaciteCharge,
+            product.TypeCarburant,
+            product.Etat,
             product.CreatedAt
         );
     }

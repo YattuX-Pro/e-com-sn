@@ -6,34 +6,31 @@ const features = [
   {
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+    ),
+    title: "Vision",
+    description: "D'ici 2035, Hasilaza Motor vise à devenir le leader dans la vente de motos au Sénégal. À l'horizon 2035, nous aspirons à nous imposer comme la référence incontournable sur le marché africain, en devenant le leader de la vente de motos et de pièces détachées."
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
         <path d="m9 12 2 2 4-4"/>
       </svg>
     ),
-    title: "Garantie 2 ans",
-    description: "Tous nos tricycles sont couverts par une garantie complète de 2 ans pièces et main d'œuvre."
+    title: "Mission",
+    description: "Notre mission est de fournir à nos clients des motos performantes à des prix abordables, accompagnées d'un service après-vente et d'un savoir-faire technique. Nous offrons des solutions fiables et innovantes pour qu'ils puissent rouler en toute sécurité et sérénité."
   },
   {
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
       </svg>
     ),
-    title: "Moteurs puissants",
-    description: "Des moteurs de 125cc à 250cc pour répondre à tous vos besoins de transport."
-  },
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
-        <path d="M15 18H9"/>
-        <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
-        <circle cx="17" cy="18" r="2"/>
-        <circle cx="7" cy="18" r="2"/>
-      </svg>
-    ),
-    title: "Livraison gratuite",
-    description: "Livraison offerte partout au Sénégal. Votre tricycle arrive directement chez vous."
+    title: "Objectifs",
+    description: "Proposer une gamme diversifiée de motos neuves et pièces détachées de qualité, adaptée aux besoins de notre clientèle particulière et professionnelle ; Assurer la fiabilité de nos produits ainsi qu'un accompagnement technique d'excellence ; Maintenir un service client exceptionnel avec conseils adaptés, assistance rapide et SAV efficace pour renforcer les relations clients et développer notre communauté."
   },
   {
     icon: (
@@ -41,8 +38,8 @@ const features = [
         <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
       </svg>
     ),
-    title: "SAV réactif",
-    description: "Notre équipe technique est disponible 7j/7 pour vous accompagner et résoudre vos problèmes."
+    title: "Nos Valeurs",
+    description: "Qualité - Proximité - Intégrité - Engagement"
   },
 ]
 

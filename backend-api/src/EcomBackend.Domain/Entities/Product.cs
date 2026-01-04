@@ -23,4 +23,7 @@ public class Product : BaseEntity
     public string DimensionCaisseChargement { get; set; } = string.Empty;
     public string BoiteVitesse { get; set; } = string.Empty;
     public string SpecificationTechnique { get; set; } = string.Empty;
+    public string CapaciteCharge { get; set; } = string.Empty;
+    public string TypeCarburant { get; set; } = string.Empty;
+    public string Etat { get; set; } = string.Empty;
 }

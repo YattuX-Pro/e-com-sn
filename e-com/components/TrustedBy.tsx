@@ -4,65 +4,73 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 
 const partners = [
-  { id: 1, name: "Partenaire 1", logo: "/logo/logo_1.png" },
-  { id: 2, name: "Partenaire 2", logo: "/logo/logo_2.png" },
-  { id: 3, name: "Partenaire 3", logo: "/logo/logo_3.png" },
-  { id: 4, name: "Partenaire 4", logo: "/logo/logo_4.png" },
-  { id: 5, name: "Partenaire 5", logo: "/logo/logo_5.png" },
-  { id: 6, name: "Partenaire 6", logo: "/logo/logo_6.png" },
-  { id: 7, name: "Partenaire 7", logo: "/logo/logo_7.png" },
+  { id: 1, name: "ANCS", logo: "/logo/ANCS.png" },
+  { id: 2, name: "Enabel", logo: "/logo/Enabel.png" },
+  { id: 3, name: "Human Appeal", logo: "/logo/HUMAN APPEAL.png" },
+  { id: 4, name: "Hasilaza Motor", logo: "/logo/HasilazaMotor.png" },
+  { id: 5, name: "Qatar Charity", logo: "/logo/QATAR CHARITY.png" },
+  { id: 6, name: "SOCODEVI", logo: "/logo/SOCODEVI.png" },
+  { id: 7, name: "LOGOS", logo: "/logo/LOGOS.png" },
 ]
 
 export default function TrustedBy() {
   return (
-    <section className="py-16 md:py-24 bg-white dark:bg-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 md:py-28 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-30" style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 0%, hsl(217, 91%, 60%), transparent)' }} />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-16 md:mb-20"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 backdrop-blur-sm mb-4"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm mb-6"
           >
             <span className="text-xl">🤝</span>
-            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Nos partenaires</span>
+            <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">Nos partenaires</span>
           </motion.div>
           
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            Ils nous font <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent">confiance</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-5">
+            Ils nous font <span className="bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">confiance</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base md:text-lg">
-            Rejoignez les entreprises et organisations qui nous font confiance pour leurs besoins en transport
+            Rejoignez les entreprises et organisations qui nous font confiance
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12 items-center">
-          {partners.map((partner, index) => (
-            <motion.div
-              key={partner.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="flex items-center justify-center"
-            >
-              <div className="relative w-full aspect-[3/2] hover:scale-110 transition-transform duration-300">
-                <Image
-                  src={partner.logo}
-                  alt={partner.name}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                />
-              </div>
-            </motion.div>
-          ))}
+        <div className="relative">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 lg:gap-10">
+            {partners.map((partner, index) => (
+              <motion.div
+                key={partner.id}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.08, duration: 0.4, ease: "easeOut" }}
+                whileHover={{ y: -8, scale: 1.05 }}
+                className="group"
+              >
+                <div className="relative w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-2xl bg-white shadow-md group-hover:shadow-xl transition-all duration-300 flex items-center justify-center p-4 border border-slate-100">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      fill
+                      className="object-contain transition-all duration-300"
+                      sizes="(max-width: 768px) 96px, (max-width: 1024px) 112px, 128px"
+                    />
+                  </div>
+                </div>
+                <p className="text-center mt-3 text-xs font-medium text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{partner.name}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

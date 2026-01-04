@@ -45,6 +45,9 @@ export function ProductDialog({ open, onOpenChange, product, onSave }: ProductDi
     dimensionCaisseChargement: "",
     boiteVitesse: "",
     specificationTechnique: "",
+    capaciteCharge: "",
+    typeCarburant: "",
+    etat: "",
   })
 
   useEffect(() => {
@@ -70,13 +73,17 @@ export function ProductDialog({ open, onOpenChange, product, onSave }: ProductDi
         dimensionCaisseChargement: product.dimensionCaisseChargement || "",
         boiteVitesse: product.boiteVitesse || "",
         specificationTechnique: product.specificationTechnique || "",
+        capaciteCharge: product.capaciteCharge || "",
+        typeCarburant: product.typeCarburant || "",
+        etat: product.etat || "",
       })
     } else {
       setForm({ 
         name: "", price: "", category: "", shortDescription: "", description: "", stock: "", 
         bestSeller: false, isPromoted: false, isActive: true, image: "/products/default.jpg", images: [],
         marque: "", modele: "", dimension: "", genre: "", freinage: "", systemeD: "",
-        dimensionCaisseChargement: "", boiteVitesse: "", specificationTechnique: ""
+        dimensionCaisseChargement: "", boiteVitesse: "", specificationTechnique: "",
+        capaciteCharge: "", typeCarburant: "", etat: ""
       })
     }
   }, [product, open])
@@ -105,6 +112,9 @@ export function ProductDialog({ open, onOpenChange, product, onSave }: ProductDi
       dimensionCaisseChargement: form.dimensionCaisseChargement,
       boiteVitesse: form.boiteVitesse,
       specificationTechnique: form.specificationTechnique,
+      capaciteCharge: form.capaciteCharge,
+      typeCarburant: form.typeCarburant,
+      etat: form.etat,
     })
     onOpenChange(false)
   }
@@ -184,6 +194,18 @@ export function ProductDialog({ open, onOpenChange, product, onSave }: ProductDi
               <div className="grid gap-2">
                 <Label htmlFor="boiteVitesse">Boîte à vitesse</Label>
                 <Input id="boiteVitesse" value={form.boiteVitesse} onChange={(e) => setForm({ ...form, boiteVitesse: e.target.value })} placeholder="Ex: 5 vitesses" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="capaciteCharge">Capacité de charge</Label>
+                <Input id="capaciteCharge" value={form.capaciteCharge} onChange={(e) => setForm({ ...form, capaciteCharge: e.target.value })} placeholder="Ex: 500 kg" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="typeCarburant">Type de carburant</Label>
+                <Input id="typeCarburant" value={form.typeCarburant} onChange={(e) => setForm({ ...form, typeCarburant: e.target.value })} placeholder="Ex: Essence" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="etat">État</Label>
+                <Input id="etat" value={form.etat} onChange={(e) => setForm({ ...form, etat: e.target.value })} placeholder="Ex: Neuf" />
               </div>
             </div>
             <div className="grid gap-2 mt-4">

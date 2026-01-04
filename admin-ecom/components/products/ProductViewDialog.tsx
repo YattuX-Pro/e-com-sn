@@ -128,6 +128,18 @@ export function ProductViewDialog({ open, onOpenChange, product }: ProductViewDi
                 <Label className="text-xs text-muted-foreground">Boîte à vitesse</Label>
                 <p className="font-medium">{displayValue(product.boiteVitesse)}</p>
               </div>
+              <div>
+                <Label className="text-xs text-muted-foreground">Capacité de charge</Label>
+                <p className="font-medium">{displayValue(product.capaciteCharge)}</p>
+              </div>
+              <div>
+                <Label className="text-xs text-muted-foreground">Type de carburant</Label>
+                <p className="font-medium">{displayValue(product.typeCarburant)}</p>
+              </div>
+              <div>
+                <Label className="text-xs text-muted-foreground">État</Label>
+                <p className="font-medium">{displayValue(product.etat)}</p>
+              </div>
             </div>
             <div className="mt-4">
               <Label className="text-xs text-muted-foreground">Spécification technique</Label>

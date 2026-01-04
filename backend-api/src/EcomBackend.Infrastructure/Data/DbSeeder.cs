@@ -14,7 +14,7 @@ public static class DbSeeder
                 Id = Guid.NewGuid(),
                 Name = "Administrateur",
                 Email = "admin@hasilaza.com",
-                Phone = "+221 77 123 45 67",
+                Phone = "+221 765788887",
                 Role = "admin",
                 Status = "active",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123!"),

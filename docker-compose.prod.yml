@@ -45,6 +45,7 @@ services:
       dockerfile: Dockerfile
       args:
         - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com/api
+        - NEXT_PUBLIC_STATIC_URL=https://api.yoobouko-hasilazamotor.com
     container_name: ecom-admin
     ports:
       - "3001:3000"
@@ -63,6 +64,7 @@ services:
       dockerfile: Dockerfile
       args:
         - NEXT_PUBLIC_API_URL=https://api.yoobouko-hasilazamotor.com/api
+        - NEXT_PUBLIC_STATIC_URL=https://api.yoobouko-hasilazamotor.com
     container_name: ecom-frontend
     ports:
       - "3000:3000"
