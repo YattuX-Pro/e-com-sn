@@ -64,8 +64,6 @@ export function UserDialog({ open, onOpenChange, user, onSave }: UserDialogProps
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="admin">Admin</SelectItem>
-                  <SelectItem value="manager">Manager</SelectItem>
-                  <SelectItem value="viewer">Lecteur</SelectItem>
                 </SelectContent>
               </Select>
             </div>

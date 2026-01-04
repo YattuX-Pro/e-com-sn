@@ -15,6 +15,10 @@ public class ApplicationDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<OrderStatus> OrderStatuses { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<SparePart> SpareParts { get; set; } = null!;
+    public DbSet<RepairRequest> RepairRequests { get; set; } = null!;
+    public DbSet<SparePartOrder> SparePartOrders { get; set; } = null!;
+    public DbSet<SparePartCategory> SparePartCategories { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -77,6 +81,53 @@ public class ApplicationDbContext : DbContext
             entity.HasIndex(e => e.Code).IsUnique();
             entity.Property(e => e.Code).IsRequired().HasMaxLength(50);
             entity.Property(e => e.Label).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).HasMaxLength(500);
+        });
+
+        modelBuilder.Entity<SparePart>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.Price).HasPrecision(18, 2);
+            entity.Property(e => e.Description).HasMaxLength(2000);
+            entity.Property(e => e.Category).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Image).HasMaxLength(500);
+            entity.Property(e => e.Reference).HasMaxLength(100);
+            entity.Property(e => e.Compatibilite).HasMaxLength(500);
+        });
+
+        modelBuilder.Entity<RepairRequest>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.CustomerName).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.CustomerPhone).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.CustomerEmail).HasMaxLength(255);
+            entity.Property(e => e.CustomerAddress).HasMaxLength(500);
+            entity.Property(e => e.VehicleType).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.VehicleModel).HasMaxLength(100);
+            entity.Property(e => e.ProblemDescription).IsRequired().HasMaxLength(2000);
+            entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Notes).HasMaxLength(2000);
+        });
+
+        modelBuilder.Entity<SparePartOrder>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.OrderId).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.CustomerName).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.CustomerPhone).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.CustomerEmail).HasMaxLength(255);
+            entity.Property(e => e.CustomerAddress).HasMaxLength(500);
+            entity.Property(e => e.SparePartName).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.SparePartReference).HasMaxLength(100);
+            entity.Property(e => e.TotalPrice).HasPrecision(18, 2);
+            entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<SparePartCategory>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Description).HasMaxLength(500);
         });
     }

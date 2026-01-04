@@ -20,9 +20,6 @@ export function TopNav() {
         <span className="font-semibold text-primary">Admin E-Com</span>
 
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="ghost" size="icon">
-            <Bell className="size-5" />
-          </Button>
 
           <Button variant="ghost" size="icon" onClick={toggleTheme}>
             {theme === "dark" ? <Sun className="size-5 text-secondary" /> : <Moon className="size-5" />}

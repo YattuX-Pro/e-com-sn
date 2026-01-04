@@ -7,10 +7,9 @@ const partners = [
   { id: 1, name: "ANCS", logo: "/logo/ANCS.png" },
   { id: 2, name: "Enabel", logo: "/logo/Enabel.png" },
   { id: 3, name: "Human Appeal", logo: "/logo/HUMAN APPEAL.png" },
-  { id: 4, name: "Hasilaza Motor", logo: "/logo/HasilazaMotor.png" },
   { id: 5, name: "Qatar Charity", logo: "/logo/QATAR CHARITY.png" },
   { id: 6, name: "SOCODEVI", logo: "/logo/SOCODEVI.png" },
-  { id: 7, name: "LOGOS", logo: "/logo/LOGOS.png" },
+  { id: 7, name: "SOMAPHY", logo: "/logo/LOGOS.png" },
 ]
 
 export default function TrustedBy() {

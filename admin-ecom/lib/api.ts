@@ -364,3 +364,163 @@ export const usersApi = {
   delete: (id: string) =>
     fetchApi<void>(`/users/${id}`, { method: 'DELETE' }),
 };
+
+export interface SparePart {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  images: string[];
+  stock: number;
+  isActive: boolean;
+  reference: string;
+  compatibilite: string;
+  createdAt: string;
+}
+
+export const sparePartsApi = {
+  getAll: () => fetchApi<SparePart[]>('/spareparts'),
+  getById: (id: string) => fetchApi<SparePart>(`/spareparts/${id}`),
+  create: (data: Omit<SparePart, 'id' | 'createdAt'>) =>
+    fetchApi<SparePart>('/spareparts', { method: 'POST', body: JSON.stringify(data) }),
+  update: (id: string, data: Omit<SparePart, 'id' | 'createdAt'>) =>
+    fetchApi<SparePart>(`/spareparts/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  delete: (id: string) => fetchApi<void>(`/spareparts/${id}`, { method: 'DELETE' }),
+  addImage: (id: string, imageUrl: string) =>
+    fetchApi<SparePart>(`/spareparts/${id}/images`, { method: 'POST', body: JSON.stringify(imageUrl) }),
+  removeImage: (id: string, imageUrl: string) =>
+    fetchApi<SparePart>(`/spareparts/${id}/images`, { method: 'DELETE', body: JSON.stringify(imageUrl) }),
+};
+
+export interface RepairRequest {
+  id: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  customerAddress: string;
+  vehicleType: string;
+  vehicleModel: string;
+  problemDescription: string;
+  status: string;
+  notes: string | null;
+  createdAt: string;
+}
+
+export const repairRequestsApi = {
+  getAll: () => fetchApi<RepairRequest[]>('/repair-requests'),
+  getById: (id: string) => fetchApi<RepairRequest>(`/repair-requests/${id}`),
+  updateStatus: (id: string, status: string, notes?: string) =>
+    fetchApi<RepairRequest>(`/repair-requests/${id}`, { method: 'PUT', body: JSON.stringify({ status, notes }) }),
+  delete: (id: string) => fetchApi<void>(`/repair-requests/${id}`, { method: 'DELETE' }),
+};
+
+export interface SparePartOrder {
+  id: string;
+  orderId: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  customerAddress: string;
+  sparePartId: string;
+  sparePartName: string;
+  sparePartReference: string;
+  quantity: number;
+  totalPrice: number;
+  status: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled";
+  createdAt: string;
+}
+
+export interface SparePartOrderFilterParams extends PaginationParams {
+  status?: string;
+}
+
+export interface SparePartCategory {
+  id: string;
+  name: string;
+  description: string;
+  createdAt: string;
+}
+
+export interface DashboardStats {
+  productsCount: number;
+  ordersCount: number;
+  usersCount: number;
+  sparePartsCount: number;
+  repairRequestsCount: number;
+  sparePartOrdersCount: number;
+}
+
+export interface RecentOrder {
+  id: string;
+  orderId: string;
+  customerName: string;
+  totalAmount: number;
+  status: string;
+  createdAt: string;
+}
+
+export interface RecentSparePartOrder {
+  id: string;
+  orderId: string;
+  customerName: string;
+  sparePartName: string;
+  totalPrice: number;
+  status: string;
+  createdAt: string;
+}
+
+export interface RecentRepairRequest {
+  id: string;
+  customerName: string;
+  vehicleModel: string;
+  problemDescription: string;
+  status: string;
+  createdAt: string;
+}
+
+export interface PopularProduct {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  stock: number;
+}
+
+export const dashboardApi = {
+  getStats: () => fetchApi<DashboardStats>('/dashboard/stats'),
+  getRecentOrders: (count?: number) => fetchApi<RecentOrder[]>(`/dashboard/recent-orders${count ? `?count=${count}` : ''}`),
+  getRecentSparePartOrders: (count?: number) => fetchApi<RecentSparePartOrder[]>(`/dashboard/recent-spare-part-orders${count ? `?count=${count}` : ''}`),
+  getRecentRepairRequests: (count?: number) => fetchApi<RecentRepairRequest[]>(`/dashboard/recent-repair-requests${count ? `?count=${count}` : ''}`),
+  getPopularProducts: (count?: number) => fetchApi<PopularProduct[]>(`/dashboard/popular-products${count ? `?count=${count}` : ''}`),
+};
+
+export const sparePartCategoriesApi = {
+  getAll: () => fetchApi<SparePartCategory[]>('/spare-part-categories'),
+  getById: (id: string) => fetchApi<SparePartCategory>(`/spare-part-categories/${id}`),
+  create: (data: Omit<SparePartCategory, 'id' | 'createdAt'>) =>
+    fetchApi<SparePartCategory>('/spare-part-categories', { method: 'POST', body: JSON.stringify(data) }),
+  update: (id: string, data: Omit<SparePartCategory, 'id' | 'createdAt'>) =>
+    fetchApi<SparePartCategory>(`/spare-part-categories/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  delete: (id: string) => fetchApi<void>(`/spare-part-categories/${id}`, { method: 'DELETE' }),
+};
+
+export const sparePartOrdersApi = {
+  getAll: () => fetchApi<SparePartOrder[]>('/spare-part-orders'),
+  getPaged: (params: SparePartOrderFilterParams) => {
+    const query = new URLSearchParams();
+    if (params.page) query.append('page', params.page.toString());
+    if (params.pageSize) query.append('pageSize', params.pageSize.toString());
+    if (params.search) query.append('search', params.search);
+    if (params.status) query.append('status', params.status);
+    return fetchApi<PagedResult<SparePartOrder>>(`/spare-part-orders/paged?${query.toString()}`);
+  },
+  getById: (id: string) => fetchApi<SparePartOrder>(`/spare-part-orders/${id}`),
+  updateStatus: (id: string, status: SparePartOrder['status']) =>
+    fetchApi<SparePartOrder>(`/spare-part-orders/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status }),
+    }),
+  delete: (id: string) => fetchApi(`/spare-part-orders/${id}`, { method: 'DELETE' }),
+};

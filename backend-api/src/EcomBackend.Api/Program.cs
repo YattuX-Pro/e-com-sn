@@ -85,6 +85,11 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<OrderStatusService>();
 builder.Services.AddScoped<UserRoleService>();
+builder.Services.AddScoped<SparePartService>();
+builder.Services.AddScoped<RepairRequestService>();
+builder.Services.AddScoped<ISparePartOrderService, SparePartOrderService>();
+builder.Services.AddScoped<SparePartCategoryService>();
+builder.Services.AddScoped<DashboardService>();
 
 var app = builder.Build();
 
@@ -119,6 +124,12 @@ app.MapOrderEndpoints();
 app.MapCategoryEndpoints();
 app.MapOrderStatusEndpoints();
 app.MapUserRoleEndpoints();
+app.MapSparePartEndpoints();
+app.MapSparePartImageEndpoints();
+app.MapRepairRequestEndpoints();
+app.MapSparePartOrderEndpoints();
+app.MapSparePartCategoryEndpoints();
+app.MapDashboardEndpoints();
 
 app.MapGet("/", () => Results.Ok(new 
 { 

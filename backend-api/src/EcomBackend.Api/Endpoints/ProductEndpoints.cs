@@ -43,6 +43,7 @@ public static class ProductEndpoints
             [FromQuery] decimal? minPrice = null,
             [FromQuery] decimal? maxPrice = null,
             [FromQuery] bool? bestSeller = null,
+            [FromQuery] bool? isPromoted = null,
             [FromQuery] bool? inStock = null,
             [FromQuery] string? sortBy = null,
             [FromQuery] bool sortDescending = false) =>
@@ -56,6 +57,7 @@ public static class ProductEndpoints
                 MinPrice = minPrice,
                 MaxPrice = maxPrice,
                 BestSeller = bestSeller,
+                IsPromoted = isPromoted,
                 InStock = inStock,
                 SortBy = sortBy,
                 SortDescending = sortDescending

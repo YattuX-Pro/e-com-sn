@@ -54,6 +54,8 @@ export default function Navbar() {
             {[
               { href: "/", label: "Accueil" },
               { href: "/produits", label: "Catalogue" },
+              { href: "/pieces", label: "Pièces" },
+              { href: "/depannage", label: "Dépannage" },
               { href: "/#contact", label: "Contact" },
             ].map((link) => (
               <Link 
@@ -135,6 +137,8 @@ export default function Navbar() {
               {[
                 { href: "/", label: "Accueil" },
                 { href: "/produits", label: "Catalogue" },
+                { href: "/pieces", label: "Pièces" },
+                { href: "/depannage", label: "Dépannage" },
                 { href: "/#features", label: "Avantages" },
                 { href: "/#contact", label: "Contact" },
               ].map((link) => (

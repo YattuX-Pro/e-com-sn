@@ -114,14 +114,20 @@ export default function ProduitsPage() {
               <Button
                 variant={bestSellerFilter === true ? "default" : "outline"}
                 size="sm"
-                onClick={() => setBestSellerFilter(bestSellerFilter === true ? undefined : true)}
+                onClick={() => {
+                  setBestSellerFilter(bestSellerFilter === true ? undefined : true)
+                  setPage(1)
+                }}
               >
                 Best-sellers
               </Button>
               <Button
                 variant={isPromotedFilter === true ? "default" : "outline"}
                 size="sm"
-                onClick={() => setIsPromotedFilter(isPromotedFilter === true ? undefined : true)}
+                onClick={() => {
+                  setIsPromotedFilter(isPromotedFilter === true ? undefined : true)
+                  setPage(1)
+                }}
               >
                 Promoted
               </Button>
@@ -132,6 +138,7 @@ export default function ProduitsPage() {
                   onClick={() => {
                     setBestSellerFilter(undefined)
                     setIsPromotedFilter(undefined)
+                    setPage(1)
                   }}
                 >
                   Réinitialiser filtres

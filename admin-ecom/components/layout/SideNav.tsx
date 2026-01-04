@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Package, ShoppingCart, Users, Settings, LogOut } from "lucide-react"
+import { LayoutDashboard, Package, ShoppingCart, Users, Settings, LogOut, Wrench, Cog, PackageSearch, Bike } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { setAuthToken } from "@/lib/api"
@@ -10,10 +10,12 @@ import { useSidebar } from "@/contexts/SidebarContext"
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/produits", label: "Produits", icon: Package },
-  { href: "/commandes", label: "Commandes", icon: ShoppingCart },
+  { href: "/produits", label: "Tricycles", icon: Bike },
+  { href: "/pieces", label: "Pièces Détachées", icon: Cog },
+  { href: "/commandes", label: "Commandes Tricycles", icon: ShoppingCart },
+  { href: "/commandes-pieces", label: "Commandes Pièces", icon: PackageSearch },
+  { href: "/depannage", label: "Dépannage", icon: Wrench },
   { href: "/utilisateurs", label: "Utilisateurs", icon: Users },
-  { href: "/configuration", label: "Configuration", icon: Settings },
 ]
 
 export function SideNav() {
@@ -47,7 +49,17 @@ export function SideNav() {
           </Link>
         ))}
       </nav>
-      <div className="mt-auto p-4 border-t">
+      <div className="mt-auto p-3 border-t space-y-1">
+        <Link
+          href="/parametres"
+          className={cn(
+            "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+            pathname === "/parametres" ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+          )}
+        >
+          <Settings className="size-5" />
+          <span>Paramètres</span>
+        </Link>
         <Button
           variant="ghost"
           className="w-full justify-start text-muted-foreground hover:text-destructive hover:bg-destructive/10"

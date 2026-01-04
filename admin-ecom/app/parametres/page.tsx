@@ -1,8 +1,44 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useState, useEffect } from "react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { FolderOpen, Tags } from "lucide-react"
+import { Category, categoriesApi, SparePartCategory, sparePartCategoriesApi } from "@/lib/api"
+import { ProductCategoriesTab, SparePartCategoriesTab } from "@/components/parametres"
 
 export default function ParametresPage() {
+  const [categories, setCategories] = useState<Category[]>([])
+  const [sparePartCategories, setSparePartCategories] = useState<SparePartCategory[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  const loadData = async () => {
+    try {
+      setLoading(true)
+      const [cats, spCats] = await Promise.all([
+        categoriesApi.getAll(),
+        sparePartCategoriesApi.getAll()
+      ])
+      setCategories(cats)
+      setSparePartCategories(spCats)
+    } catch (error) {
+      console.error("Error loading data:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -10,14 +46,24 @@ export default function ParametresPage() {
         <p className="text-muted-foreground">Configurez votre application</p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Paramètres généraux</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">Fonctionnalité en cours de développement</p>
-        </CardContent>
-      </Card>
+      <Tabs defaultValue="categories" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="categories" className="flex items-center gap-2">
+            <FolderOpen className="size-4" /> Catégories Produits
+          </TabsTrigger>
+          <TabsTrigger value="spare-part-categories" className="flex items-center gap-2">
+            <Tags className="size-4" /> Catégories Pièces
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="categories">
+          <ProductCategoriesTab categories={categories} onRefresh={loadData} />
+        </TabsContent>
+
+        <TabsContent value="spare-part-categories">
+          <SparePartCategoriesTab categories={sparePartCategories} onRefresh={loadData} />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }
