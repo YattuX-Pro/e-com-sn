@@ -153,12 +153,12 @@ deploy_docker() {
     
     # Démarrer PostgreSQL d'abord
     log_info "Démarrage de PostgreSQL..."
-    docker compose -f docker-compose.prod.yml up -d ecom-postgres
+    docker compose -f docker-compose.prod.yml up -d postgres
     
     # Attendre que PostgreSQL soit prêt
     log_info "Attente du démarrage de PostgreSQL..."
     sleep 10
-    until docker compose -f docker-compose.prod.yml exec -T ecom-postgres pg_isready -U ecom_user -d ecom_db 2>/dev/null; do
+    until docker compose -f docker-compose.prod.yml exec -T postgres pg_isready -U hasilaza_user_admin -d hasilaza_db 2>/dev/null; do
         log_info "PostgreSQL n'est pas encore prêt, attente..."
         sleep 3
     done
@@ -171,7 +171,7 @@ deploy_docker() {
     # Attendre et vérifier les logs du backend pour les migrations
     log_info "Vérification des migrations (voir logs backend)..."
     sleep 15
-    docker compose -f docker-compose.prod.yml logs --tail=50 ecom-backend-api | grep -E "(Migration|migration|pending|applied)" || true
+    docker compose -f docker-compose.prod.yml logs --tail=50 backend-api | grep -E "(Migration|migration|pending|applied)" || true
     
     # Vérifier l'état des conteneurs
     docker compose -f docker-compose.prod.yml ps
