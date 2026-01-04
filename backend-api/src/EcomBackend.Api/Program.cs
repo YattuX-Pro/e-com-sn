@@ -100,18 +100,35 @@ builder.Services.AddScoped<DashboardService>();
 
 var app = builder.Build();
 
+// Apply migrations at startup - required for new tables
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    
     try
     {
-        await context.Database.MigrateAsync();
+        logger.LogInformation("Checking for pending migrations...");
+        var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+        
+        if (pendingMigrations.Any())
+        {
+            logger.LogInformation("Applying {Count} pending migrations: {Migrations}", 
+                pendingMigrations.Count(), string.Join(", ", pendingMigrations));
+            await context.Database.MigrateAsync();
+            logger.LogInformation("Migrations applied successfully");
+        }
+        else
+        {
+            logger.LogInformation("Database is up to date, no migrations needed");
+        }
+        
         await DbSeeder.SeedAsync(context);
     }
     catch (Exception ex)
     {
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogWarning(ex, "Migration or seeding failed, continuing anyway...");
+        logger.LogError(ex, "Migration failed: {Message}", ex.Message);
+        // Don't throw - let the app start and handle errors at runtime
     }
 }
 

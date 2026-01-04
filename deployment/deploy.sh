@@ -135,6 +135,7 @@ setup_wwwroot() {
 }
 
 # Build et démarrage des conteneurs Docker
+# Les migrations EF Core sont exécutées automatiquement au démarrage du backend
 deploy_docker() {
     log_info "Déploiement des conteneurs Docker..."
     
@@ -146,12 +147,33 @@ deploy_docker() {
     # Nettoyer les anciennes images
     docker image prune -f || true
     
-    # Build et démarrage
+    # Build des images
+    log_info "Build des images Docker..."
     docker compose -f docker-compose.prod.yml build --no-cache
+    
+    # Démarrer PostgreSQL d'abord
+    log_info "Démarrage de PostgreSQL..."
+    docker compose -f docker-compose.prod.yml up -d ecom-postgres
+    
+    # Attendre que PostgreSQL soit prêt
+    log_info "Attente du démarrage de PostgreSQL..."
+    sleep 10
+    until docker compose -f docker-compose.prod.yml exec -T ecom-postgres pg_isready -U ecom_user -d ecom_db 2>/dev/null; do
+        log_info "PostgreSQL n'est pas encore prêt, attente..."
+        sleep 3
+    done
+    log_success "PostgreSQL est prêt"
+    
+    # Démarrer tous les conteneurs (le backend appliquera les migrations automatiquement)
+    log_info "Démarrage de tous les services..."
     docker compose -f docker-compose.prod.yml up -d
     
+    # Attendre et vérifier les logs du backend pour les migrations
+    log_info "Vérification des migrations (voir logs backend)..."
+    sleep 15
+    docker compose -f docker-compose.prod.yml logs --tail=50 ecom-backend-api | grep -E "(Migration|migration|pending|applied)" || true
+    
     # Vérifier l'état des conteneurs
-    sleep 10
     docker compose -f docker-compose.prod.yml ps
     
     log_success "Conteneurs Docker déployés"
