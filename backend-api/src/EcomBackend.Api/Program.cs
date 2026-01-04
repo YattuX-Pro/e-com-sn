@@ -103,8 +103,16 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await context.Database.MigrateAsync();
-    await DbSeeder.SeedAsync(context);
+    try
+    {
+        await context.Database.MigrateAsync();
+        await DbSeeder.SeedAsync(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogWarning(ex, "Migration or seeding failed, continuing anyway...");
+    }
 }
 
 if (app.Environment.IsDevelopment())
