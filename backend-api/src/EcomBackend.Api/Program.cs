@@ -69,9 +69,16 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins(
+                "http://localhost:3000",
+                "http://localhost:3001",
+                "https://yoobouko-hasilazamotor.com",
+                "https://www.yoobouko-hasilazamotor.com",
+                "https://admin.yoobouko-hasilazamotor.com"
+              )
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
 
