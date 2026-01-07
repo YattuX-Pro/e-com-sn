@@ -23,3 +23,5 @@
 **/values.dev.yaml
 LICENSE
 README.md
+# Exclure les fichiers uploadés (seront montés via volume Docker)
+**/wwwroot/products/**

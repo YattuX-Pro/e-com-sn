@@ -122,7 +122,7 @@ check_config() {
     log_success "Configuration vérifiée"
 }
 
-# Créer le dossier wwwroot s'il n'existe pas
+# Créer le dossier wwwroot s'il n'existe pas et migrer les fichiers vers le volume Docker
 setup_wwwroot() {
     log_info "Configuration du dossier wwwroot..."
     
@@ -132,6 +132,18 @@ setup_wwwroot() {
     chmod -R 755 "$WWWROOT_DIR"
     
     log_success "Dossier wwwroot configuré"
+}
+
+# Migrer les images de produits vers le volume Docker
+migrate_product_images() {
+    log_info "Migration des images de produits vers le volume Docker..."
+    
+    if [ -f "$APP_DIR/deployment/migrate-products.sh" ]; then
+        chmod +x "$APP_DIR/deployment/migrate-products.sh"
+        bash "$APP_DIR/deployment/migrate-products.sh" || log_warning "Migration des images échouée (peut-être déjà migrées)"
+    else
+        log_warning "Script de migration non trouvé, ignoré"
+    fi
 }
 
 # Build et démarrage des conteneurs Docker
@@ -309,6 +321,7 @@ main() {
                 setup_repository
                 check_config
                 setup_wwwroot
+                migrate_product_images
                 deploy_docker
                 setup_nginx
                 setup_firewall
@@ -319,12 +332,14 @@ main() {
             "Mise à jour du code uniquement")
                 setup_repository
                 check_config
+                migrate_product_images
                 deploy_docker
                 show_status
                 break
                 ;;
             "Rebuild Docker uniquement")
                 cd "$APP_DIR"
+                migrate_product_images
                 deploy_docker
                 show_status
                 break

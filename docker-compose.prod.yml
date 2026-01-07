@@ -27,7 +27,7 @@ services:
     ports:
       - "5001:8080"
     volumes:
-      - ./backend-api/src/EcomBackend.Api/wwwroot:/app/wwwroot
+      - product_images:/app/wwwroot/products
       - ./backend-api/src/EcomBackend.Api/appsettings.Production.json:/app/appsettings.Production.json:ro
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
@@ -83,3 +83,4 @@ networks:
 
 volumes:
   postgres_data:
+  product_images:
