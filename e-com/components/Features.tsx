@@ -171,7 +171,7 @@ export default function Features() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.6 }}
-            className="flex justify-start md:justify-center mt-4 ml-[-5px] md:ml-0"
+            className="flex justify-start md:justify-center mt-4 ml-[-32px] md:ml-0"
           >
             <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center shadow-md shadow-yellow-500/30">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-slate-900">

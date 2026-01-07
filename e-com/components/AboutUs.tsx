@@ -64,7 +64,7 @@ export default function AboutUs() {
               </p>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 pt-8 mt-8 border-t border-slate-200 dark:border-slate-700">
+              <div className="grid grid-cols-3 gap-4 pt-8 mt-8 border-t border-slate-200 dark:border-slate-700">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}

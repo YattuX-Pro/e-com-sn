@@ -206,7 +206,7 @@ export default function ProductDetailPage() {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-slate-900 dark:text-white">Garantie</p>
-                    <p className="text-xs text-slate-500">2 ans</p>
+                    <p className="text-xs text-slate-500">Inclue</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800">

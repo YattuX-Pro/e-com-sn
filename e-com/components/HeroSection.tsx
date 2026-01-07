@@ -128,7 +128,7 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.8 }} className="grid grid-cols-3 gap-4 md:gap-8">
-              {[{ value: "1000+", label: "Clients" }, { value: "2 ans", label: "Garantie" }, { value: "24h", label: "Support" }].map((stat, index) => (
+              {[{ value: "1000+", label: "Clients" }, { value: "Inclue", label: "Garantie" }, { value: "24h", label: "Support" }].map((stat, index) => (
                 <div key={index} className="text-center sm:text-left">
                   <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: 'hsl(48, 96%, 53%)' }}>{stat.value}</div>
                   <div className="text-xs md:text-sm text-slate-600 dark:text-slate-500">{stat.label}</div>
