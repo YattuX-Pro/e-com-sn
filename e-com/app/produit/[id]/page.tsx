@@ -47,6 +47,12 @@ export default function ProductDetailPage() {
     }
   }, [params.id])
 
+  useEffect(() => {
+    if (isSuccess) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [isSuccess])
+
   if (loading) {
     return (
       <>
