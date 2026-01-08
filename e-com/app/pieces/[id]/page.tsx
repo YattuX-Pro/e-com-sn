@@ -231,7 +231,7 @@ export default function SparePartDetailPage() {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-slate-900 dark:text-white">Garantie</p>
-                      <p className="text-xs text-slate-500">6 mois</p>
+                      <p className="text-xs text-slate-500">Incluse</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800">

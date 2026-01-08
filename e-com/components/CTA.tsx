@@ -65,7 +65,7 @@ export default function CTA() {
               </motion.button>
             </Link>
             
-            <Link href="https://wa.me/221771234567">
+            <Link href="https://wa.me/221765788887">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

@@ -51,7 +51,7 @@ const services = [
   { icon: WrenchIcon, title: "Réparation Complète", desc: "Diagnostic et réparation de tous types de pannes mécaniques et électriques" },
   { icon: GearIcon, title: "Entretien Régulier", desc: "Maintenance préventive pour prolonger la durée de vie de votre véhicule" },
   { icon: TruckIcon, title: "Intervention Rapide", desc: "Nos techniciens se déplacent chez vous ou sur le lieu de la panne" },
-  { icon: ShieldIcon, title: "Garantie Qualité", desc: "Pièces d'origine et travail garanti pour votre tranquillité" },
+  { icon: ShieldIcon, title: "Garantie Incluse", desc: "Pièces d'origine et travail garanti pour votre tranquillité" },
 ]
 
 const steps = [
