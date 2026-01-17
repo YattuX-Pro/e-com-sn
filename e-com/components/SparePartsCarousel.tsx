@@ -125,7 +125,7 @@ export default function SparePartsCarousel() {
               className="flex-shrink-0 w-[200px]"
             >
               <Link 
-                href={`/pieces-detachees/${part.id}`} 
+                href={`/pieces/${part.id}`} 
                 className="group block h-full"
               >
                 <div className="bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-lg h-full flex flex-col">
@@ -187,7 +187,7 @@ export default function SparePartsCarousel() {
         viewport={{ once: true }}
         className="text-center mt-16 relative z-10"
       >
-        <Link href="/pieces-detachees">
+        <Link href="/pieces">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
