@@ -152,7 +152,7 @@ export default function SparePartDetailPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
-        <div className="pt-28 pb-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+        <div className="pt-24 pb-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
               <Link href="/" className="hover:text-blue-500 transition-colors">Accueil</Link>
