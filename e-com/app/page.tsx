@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar"
 import HeroSection from "@/components/HeroSection"
 import BestSellers from "@/components/BestSellers"
+import SparePartsCarousel from "@/components/SparePartsCarousel"
 import AboutUs from "@/components/AboutUs"
 import TrustedBy from "@/components/TrustedBy"
 import Features from "@/components/Features"
@@ -13,9 +14,10 @@ export default function Home() {
     <main className="bg-slate-950">
       <Navbar />
       <HeroSection />
-      <BestSellers />
       <AboutUs />
       <Features />
+      <BestSellers />
+      <SparePartsCarousel />
       <CTA />
       <TrustedBy />
       <Footer />

@@ -22,6 +22,12 @@ public static class SparePartEndpoints
             return Results.Ok(parts);
         });
 
+        group.MapGet("/latest", async (int? count, SparePartService service) =>
+        {
+            var parts = await service.GetLatestAsync(count ?? 10);
+            return Results.Ok(parts);
+        });
+
         group.MapGet("/{id:guid}", async (Guid id, SparePartService service) =>
         {
             var part = await service.GetByIdAsync(id);

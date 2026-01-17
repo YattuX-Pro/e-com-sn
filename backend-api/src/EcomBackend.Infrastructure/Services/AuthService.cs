@@ -29,6 +29,11 @@ public class AuthService : IAuthService
             return null;
         }
 
+        if (user.Status != "active")
+        {
+            throw new UnauthorizedAccessException("Votre compte est désactivé. Contactez l'administrateur.");
+        }
+
         var token = _jwtService.GenerateToken(user);
 
         return new AuthResponseDto

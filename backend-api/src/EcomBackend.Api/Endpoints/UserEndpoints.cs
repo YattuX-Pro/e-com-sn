@@ -96,5 +96,35 @@ public static class UserEndpoints
         })
         .WithName("DeleteUser")
         .WithOpenApi();
+
+        group.MapPatch("/{id:guid}/password", async (Guid id, ChangePasswordDto dto, IUserService userService) =>
+        {
+            try
+            {
+                await userService.ChangePasswordAsync(id, dto.NewPassword);
+                return Results.Ok(new { message = "Mot de passe modifié avec succès" });
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new { error = ex.Message });
+            }
+        })
+        .WithName("ChangeUserPassword")
+        .WithOpenApi();
+
+        group.MapPatch("/{id:guid}/toggle-status", async (Guid id, IUserService userService) =>
+        {
+            try
+            {
+                var user = await userService.ToggleStatusAsync(id);
+                return Results.Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new { error = ex.Message });
+            }
+        })
+        .WithName("ToggleUserStatus")
+        .WithOpenApi();
     }
 }

@@ -5,9 +5,9 @@ import Image from "next/image"
 
 const partners = [
   { id: 1, name: "ANCS", logo: "/logo/ANCS.png" },
-  { id: 2, name: "Enabel", logo: "/logo/Enabel.png" },
-  { id: 3, name: "Human Appeal", logo: "/logo/HUMAN APPEAL.png" },
-  { id: 5, name: "Qatar Charity", logo: "/logo/QATAR CHARITY.png" },
+  { id: 2, name: "ENABEL", logo: "/logo/Enabel.png" },
+  { id: 3, name: "HUMAN APPEAL", logo: "/logo/HUMAN APPEAL.png" },
+  { id: 5, name: "QATAR CHARITY", logo: "/logo/QATAR CHARITY.png" },
   { id: 6, name: "SOCODEVI", logo: "/logo/SOCODEVI.png" },
   { id: 7, name: "SOMAPHY", logo: "/logo/LOGOS.png" },
 ]
@@ -66,7 +66,7 @@ export default function TrustedBy() {
                     />
                   </div>
                 </div>
-                <p className="text-center mt-3 text-xs font-medium text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{partner.name}</p>
+                <p className="text-center mt-3 text-xs font-medium text-slate-600 dark:text-slate-400">{partner.name}</p>
               </motion.div>
             ))}
           </div>

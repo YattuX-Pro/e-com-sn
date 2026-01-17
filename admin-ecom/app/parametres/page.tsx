@@ -10,6 +10,7 @@ export default function ParametresPage() {
   const [categories, setCategories] = useState<Category[]>([])
   const [sparePartCategories, setSparePartCategories] = useState<SparePartCategory[]>([])
   const [loading, setLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState("categories")
 
   useEffect(() => {
     loadData()
@@ -46,7 +47,7 @@ export default function ParametresPage() {
         <p className="text-muted-foreground">Configurez votre application</p>
       </div>
 
-      <Tabs defaultValue="categories" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="categories" className="flex items-center gap-2">
             <FolderOpen className="size-4" /> Catégories Produits

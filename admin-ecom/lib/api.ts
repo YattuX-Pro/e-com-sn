@@ -59,6 +59,8 @@ export interface Order {
   quantity: number;
   totalPrice: number;
   status: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled";
+  comment?: string;
+  internalNotes?: string;
   createdAt: string;
 }
 
@@ -238,10 +240,10 @@ export const ordersApi = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
-  updateStatus: (id: string, status: Order['status']) =>
+  updateStatus: (id: string, status: Order['status'], internalNotes?: string) =>
     fetchApi<Order>(`/orders/${id}/status`, {
       method: 'PATCH',
-      body: JSON.stringify({ status }),
+      body: JSON.stringify({ status, internalNotes }),
     }),
   delete: (id: string) =>
     fetchApi(`/orders/${id}`, {
@@ -337,6 +339,15 @@ export const authApi = {
     }),
 };
 
+export interface CreateUserData {
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+  role: string;
+  status: string;
+}
+
 export const usersApi = {
   getAll: () => fetchApi<User[]>('/users'),
   getPaged: (params: UserFilterParams) => {
@@ -351,7 +362,7 @@ export const usersApi = {
     return fetchApi<PagedResult<User>>(`/users/paged?${query.toString()}`);
   },
   getById: (id: string) => fetchApi<User>(`/users/${id}`),
-  create: (data: Omit<User, 'id' | 'createdAt'>) =>
+  create: (data: CreateUserData) =>
     fetchApi<User>('/users', {
       method: 'POST',
       body: JSON.stringify(data),
@@ -363,6 +374,13 @@ export const usersApi = {
     }),
   delete: (id: string) =>
     fetchApi<void>(`/users/${id}`, { method: 'DELETE' }),
+  changePassword: (id: string, newPassword: string) =>
+    fetchApi<{ message: string }>(`/users/${id}/password`, {
+      method: 'PATCH',
+      body: JSON.stringify({ newPassword }),
+    }),
+  toggleStatus: (id: string) =>
+    fetchApi<User>(`/users/${id}/toggle-status`, { method: 'PATCH' }),
 };
 
 export interface SparePart {
@@ -429,6 +447,8 @@ export interface SparePartOrder {
   quantity: number;
   totalPrice: number;
   status: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled";
+  comment?: string;
+  internalNotes?: string;
   createdAt: string;
 }
 
@@ -517,10 +537,10 @@ export const sparePartOrdersApi = {
     return fetchApi<PagedResult<SparePartOrder>>(`/spare-part-orders/paged?${query.toString()}`);
   },
   getById: (id: string) => fetchApi<SparePartOrder>(`/spare-part-orders/${id}`),
-  updateStatus: (id: string, status: SparePartOrder['status']) =>
+  updateStatus: (id: string, status: SparePartOrder['status'], internalNotes?: string) =>
     fetchApi<SparePartOrder>(`/spare-part-orders/${id}/status`, {
       method: 'PATCH',
-      body: JSON.stringify({ status }),
+      body: JSON.stringify({ status, internalNotes }),
     }),
   delete: (id: string) => fetchApi(`/spare-part-orders/${id}`, { method: 'DELETE' }),
 };

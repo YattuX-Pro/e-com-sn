@@ -4,15 +4,17 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
-import { User, usersApi, PagedResult } from "@/lib/api"
+import { User, usersApi, PagedResult, CreateUserData } from "@/lib/api"
 import { UserTable } from "@/components/users/UserTable"
 import { UserDialog } from "@/components/users/UserDialog"
 import { DeleteDialog } from "@/components/products/DeleteDialog"
+import { PasswordDialog } from "@/components/users/PasswordDialog"
 
 export default function UtilisateursPage() {
   const [pagedData, setPagedData] = useState<PagedResult<User> | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [passwordOpen, setPasswordOpen] = useState(false)
   const [selected, setSelected] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
@@ -43,18 +45,38 @@ export default function UtilisateursPage() {
   const handleAdd = () => { setSelected(null); setDialogOpen(true) }
   const handleEdit = (u: User) => { setSelected(u); setDialogOpen(true) }
   const handleDelete = (u: User) => { setSelected(u); setDeleteOpen(true) }
+  const handleChangePassword = (u: User) => { setSelected(u); setPasswordOpen(true) }
 
-  const handleSave = async (data: Partial<User>) => {
+  const handleToggleStatus = async (u: User) => {
     try {
-      if (selected) {
+      await usersApi.toggleStatus(u.id)
+      await loadUsers()
+    } catch (error) {
+      console.error('Error toggling user status:', error)
+    }
+  }
+
+  const handleSave = async (data: CreateUserData | Omit<User, 'id' | 'createdAt'>, isNew: boolean) => {
+    try {
+      if (isNew) {
+        await usersApi.create(data as CreateUserData)
+      } else if (selected) {
         await usersApi.update(selected.id, data as Omit<User, 'id' | 'createdAt'>)
-      } else {
-        await usersApi.create(data as Omit<User, 'id' | 'createdAt'>)
       }
       await loadUsers()
       setDialogOpen(false)
     } catch (error) {
       console.error('Error saving user:', error)
+    }
+  }
+
+  const handlePasswordChange = async (newPassword: string) => {
+    if (!selected) return
+    try {
+      await usersApi.changePassword(selected.id, newPassword)
+      setPasswordOpen(false)
+    } catch (error) {
+      console.error('Error changing password:', error)
     }
   }
 
@@ -99,6 +121,8 @@ export default function UtilisateursPage() {
               users={pagedData?.items || []} 
               onEdit={handleEdit} 
               onDelete={handleDelete}
+              onChangePassword={handleChangePassword}
+              onToggleStatus={handleToggleStatus}
               onSearchChange={setSearch}
               onRoleChange={setRole}
             />
@@ -130,6 +154,12 @@ export default function UtilisateursPage() {
       </Card>
 
       <UserDialog open={dialogOpen} onOpenChange={setDialogOpen} user={selected} onSave={handleSave} />
+      <PasswordDialog 
+        open={passwordOpen} 
+        onOpenChange={setPasswordOpen} 
+        userName={selected?.name}
+        onSave={handlePasswordChange} 
+      />
       <DeleteDialog
         open={deleteOpen}
         onOpenChange={setDeleteOpen}

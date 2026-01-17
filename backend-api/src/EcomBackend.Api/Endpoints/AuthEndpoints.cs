@@ -12,8 +12,15 @@ public static class AuthEndpoints
 
         group.MapPost("/login", async ([FromBody] LoginDto loginDto, IAuthService authService) =>
         {
-            var result = await authService.LoginAsync(loginDto);
-            return result != null ? Results.Ok(result) : Results.Unauthorized();
+            try
+            {
+                var result = await authService.LoginAsync(loginDto);
+                return result != null ? Results.Ok(result) : Results.Unauthorized();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Results.Json(new { error = ex.Message }, statusCode: 403);
+            }
         })
         .WithName("Login")
         .WithOpenApi();

@@ -54,8 +54,8 @@ const localStatuses: Array<{ value: string; label: string }> = [
   { value: "all", label: "Tous les statuts" },
   { value: "pending", label: "En attente" },
   { value: "confirmed", label: "Confirmée" },
-  { value: "shipped", label: "Expédiée" },
-  { value: "delivered", label: "Livrée" },
+  { value: "shipped", label: "Livré" },
+  { value: "delivered", label: "Terminé" },
   { value: "cancelled", label: "Annulée" },
 ]
 
@@ -86,8 +86,8 @@ export function OrderTable({ orders, onView, onSearchChange, onStatusChange, cur
     const localLabels: Record<string, string> = {
       pending: "En attente",
       confirmed: "Confirmée",
-      shipped: "Expédiée",
-      delivered: "Livrée",
+      shipped: "Livré",
+      delivered: "Terminé",
       cancelled: "Annulée"
     }
     

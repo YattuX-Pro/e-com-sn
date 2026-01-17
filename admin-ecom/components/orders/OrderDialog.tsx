@@ -35,8 +35,8 @@ const getStatusLabel = (status: Order["status"]): string => {
   const labels = {
     pending: "En attente",
     confirmed: "Confirmée",
-    shipped: "Expédiée",
-    delivered: "Livrée",
+    shipped: "Livré",
+    delivered: "Terminé",
     cancelled: "Annulée",
   }
   return labels[status]
@@ -54,11 +54,12 @@ interface OrderDialogProps {
   onOpenChange: (open: boolean) => void
   order: Order | null
   onUpdateStatus: (orderId: string, status: Order["status"]) => void
+  onEditNotes: (order: Order) => void
 }
 
 const statuses: Order["status"][] = ["pending", "confirmed", "shipped", "delivered", "cancelled"]
 
-export function OrderDialog({ open, onOpenChange, order, onUpdateStatus }: OrderDialogProps) {
+export function OrderDialog({ open, onOpenChange, order, onUpdateStatus, onEditNotes }: OrderDialogProps) {
   if (!order) return null
 
   return (
@@ -135,6 +136,12 @@ export function OrderDialog({ open, onOpenChange, order, onUpdateStatus }: Order
                   <span className="text-xs text-muted-foreground min-w-[80px] pt-0.5">Quantité</span>
                   <span className="font-semibold flex-1">{order.quantity} unité(s)</span>
                 </div>
+                {order.comment && (
+                  <div className="flex items-start gap-3 p-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+                    <span className="text-xs text-muted-foreground min-w-[80px] pt-0.5">Commentaire</span>
+                    <span className="font-medium flex-1 text-amber-800 dark:text-amber-200">{order.comment}</span>
+                  </div>
+                )}
                 <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 p-4 rounded-lg border border-green-200 dark:border-green-900/30 mt-2">
                   <span className="text-xs text-muted-foreground block mb-1">Montant total</span>
                   <span className="font-bold text-3xl text-green-600 dark:text-green-400">{formatPrice(order.totalPrice)}</span>
@@ -145,8 +152,8 @@ export function OrderDialog({ open, onOpenChange, order, onUpdateStatus }: Order
 
           <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -168,6 +175,32 @@ export function OrderDialog({ open, onOpenChange, order, onUpdateStatus }: Order
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </div>
+                <Label className="font-semibold">Notes internes</Label>
+              </div>
+              <Button variant="outline" size="sm" onClick={() => onEditNotes(order)}>
+                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                Modifier
+              </Button>
+            </div>
+            <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg min-h-[60px]">
+              {order.internalNotes ? (
+                <p className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap">{order.internalNotes}</p>
+              ) : (
+                <p className="text-sm text-muted-foreground italic">Aucune note interne</p>
+              )}
             </div>
           </div>
         </div>

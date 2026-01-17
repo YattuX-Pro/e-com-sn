@@ -13,6 +13,8 @@ public record SparePartOrderDto(
     int Quantity,
     decimal TotalPrice,
     string Status,
+    string? Comment,
+    string? InternalNotes,
     DateTime CreatedAt
 );
 
@@ -22,7 +24,8 @@ public record CreateSparePartOrderDto(
     string CustomerEmail,
     string CustomerAddress,
     Guid SparePartId,
-    int Quantity
+    int Quantity,
+    string? Comment = null
 );
 
 public record SparePartOrderFilterParams(

@@ -17,6 +17,11 @@ public class UserService : IUserService
         _unitOfWork = unitOfWork;
     }
 
+    private string HashPassword(string password)
+    {
+        return BCrypt.Net.BCrypt.HashPassword(password);
+    }
+
     public async Task<UserDto?> GetByIdAsync(Guid id)
     {
         var user = await _userRepository.GetByIdAsync(id);
@@ -84,6 +89,12 @@ public class UserService : IUserService
 
     public async Task<UserDto> CreateAsync(CreateUserDto dto)
     {
+        var users = await _userRepository.GetAllAsync();
+        if (users.Any(u => u.Email == dto.Email))
+        {
+            throw new Exception("Un utilisateur avec cet email existe déjà");
+        }
+
         var user = new User
         {
             Id = Guid.NewGuid(),
@@ -91,10 +102,35 @@ public class UserService : IUserService
             Email = dto.Email,
             Phone = dto.Phone,
             Role = dto.Role,
-            Status = dto.Status
+            Status = dto.Status,
+            PasswordHash = HashPassword(dto.Password)
         };
 
         await _userRepository.AddAsync(user);
+        await _unitOfWork.SaveChangesAsync();
+
+        return MapToDto(user);
+    }
+
+    public async Task ChangePasswordAsync(Guid id, string newPassword)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        if (user == null)
+            throw new Exception("Utilisateur non trouvé");
+
+        user.PasswordHash = HashPassword(newPassword);
+        await _userRepository.UpdateAsync(user);
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<UserDto> ToggleStatusAsync(Guid id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        if (user == null)
+            throw new Exception("Utilisateur non trouvé");
+
+        user.Status = user.Status == "active" ? "inactive" : "active";
+        await _userRepository.UpdateAsync(user);
         await _unitOfWork.SaveChangesAsync();
 
         return MapToDto(user);

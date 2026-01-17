@@ -28,6 +28,7 @@ export default function DemandeDepannagePage() {
     try {
       await repairRequestsApi.create(form)
       setSuccess(true)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch {
       setError("Une erreur s'est produite. Veuillez réessayer.")
     } finally {

@@ -29,7 +29,7 @@ const getStatusColor = (status: SparePartOrder["status"]): string => {
 }
 
 const getStatusLabel = (status: SparePartOrder["status"]): string => {
-  const labels = { pending: "En attente", confirmed: "Confirmée", shipped: "Expédiée", delivered: "Livrée", cancelled: "Annulée" }
+  const labels = { pending: "En attente", confirmed: "Confirmée", shipped: "Livré", delivered: "Terminé", cancelled: "Annulée" }
   return labels[status]
 }
 
@@ -37,8 +37,8 @@ const localStatuses = [
   { value: "all", label: "Tous les statuts" },
   { value: "pending", label: "En attente" },
   { value: "confirmed", label: "Confirmée" },
-  { value: "shipped", label: "Expédiée" },
-  { value: "delivered", label: "Livrée" },
+  { value: "shipped", label: "Livré" },
+  { value: "delivered", label: "Terminé" },
   { value: "cancelled", label: "Annulée" },
 ]
 

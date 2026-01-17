@@ -5,11 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { SparePartOrder, sparePartOrdersApi, PagedResult } from "@/lib/api"
 import { SparePartOrderTable, SparePartOrderDialog } from "@/components/sparepartorders"
+import { InternalNotesDialog } from "@/components/orders/InternalNotesDialog"
 
 export default function CommandesPiecesPage() {
   const [pagedData, setPagedData] = useState<PagedResult<SparePartOrder> | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [notesDialogOpen, setNotesDialogOpen] = useState(false)
   const [selected, setSelected] = useState<SparePartOrder | null>(null)
+  const [notesOrder, setNotesOrder] = useState<SparePartOrder | null>(null)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState("")
@@ -40,6 +43,21 @@ export default function CommandesPiecesPage() {
       if (selected?.id === orderId) setSelected({ ...selected, status })
     } catch (error) {
       console.error('Error updating order status:', error)
+    }
+  }
+
+  const handleEditNotes = (order: SparePartOrder) => {
+    setNotesOrder(order)
+    setNotesDialogOpen(true)
+  }
+
+  const handleSaveNotes = async (orderId: string, notes: string) => {
+    try {
+      await sparePartOrdersApi.updateStatus(orderId, selected?.status || "pending", notes)
+      await loadOrders()
+      if (selected?.id === orderId) setSelected({ ...selected, internalNotes: notes })
+    } catch (error) {
+      console.error('Error saving notes:', error)
     }
   }
 
@@ -86,7 +104,16 @@ export default function CommandesPiecesPage() {
         </CardContent>
       </Card>
 
-      <SparePartOrderDialog open={dialogOpen} onOpenChange={setDialogOpen} order={selected} onUpdateStatus={handleUpdateStatus} />
+      <SparePartOrderDialog open={dialogOpen} onOpenChange={setDialogOpen} order={selected} onUpdateStatus={handleUpdateStatus} onEditNotes={handleEditNotes} />
+      
+      <InternalNotesDialog 
+        open={notesDialogOpen} 
+        onOpenChange={setNotesDialogOpen} 
+        orderId={notesOrder?.id || ""}
+        orderNumber={notesOrder?.orderId || ""}
+        currentNotes={notesOrder?.internalNotes}
+        onSave={handleSaveNotes}
+      />
     </div>
   )
 }

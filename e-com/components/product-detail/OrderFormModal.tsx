@@ -14,6 +14,7 @@ interface OrderForm {
   email: string
   adresse: string
   quantite: number
+  commentaire?: string
 }
 
 interface FormErrors {
@@ -45,7 +46,8 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
     telephone: "",
     email: "",
     adresse: "",
-    quantite: 1
+    quantite: 1,
+    commentaire: ""
   })
   
   const [errors, setErrors] = useState<FormErrors>({})
@@ -168,7 +170,7 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                   value={formData.nom}
                   onChange={handleChange}
                   placeholder="Votre nom"
-                  className={`h-10 sm:h-11 text-sm ${errors.nom ? 'ring-2 ring-red-500 border-red-500' : ''}`}
+                  className={`h-10 sm:h-11 text-base ${errors.nom ? 'ring-2 ring-red-500 border-red-500' : ''}`}
                 />
                 {errors.nom && <p className="text-red-500 text-xs mt-1">{errors.nom}</p>}
               </div>
@@ -183,7 +185,7 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                   value={formData.telephone}
                   onChange={handleChange}
                   placeholder="+221 765788887"
-                  className={`h-10 sm:h-11 text-sm ${errors.telephone ? 'ring-2 ring-red-500 border-red-500' : ''}`}
+                  className={`h-10 sm:h-11 text-base ${errors.telephone ? 'ring-2 ring-red-500 border-red-500' : ''}`}
                 />
                 {errors.telephone && <p className="text-red-500 text-xs mt-1">{errors.telephone}</p>}
               </div>
@@ -197,7 +199,7 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="votre@email.com"
-                  className={`h-10 sm:h-11 text-sm ${errors.email ? 'ring-2 ring-red-500 border-red-500' : ''}`}
+                  className={`h-10 sm:h-11 text-base ${errors.email ? 'ring-2 ring-red-500 border-red-500' : ''}`}
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
               </div>
@@ -221,7 +223,7 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                     onChange={handleChange}
                     min={1}
                     max={product.stock}
-                    className="flex-1 h-10 sm:h-11 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium text-sm"
+                    className="flex-1 h-10 sm:h-11 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium text-base"
                   />
                   <button
                     type="button"
@@ -245,9 +247,23 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                 onChange={handleChange}
                 placeholder="Votre adresse complète"
                 rows={2}
-                className={`w-full px-3 py-2 sm:py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-xs sm:text-sm ${errors.adresse ? 'ring-2 ring-red-500 border-red-500' : ''}`}
+                className={`w-full px-3 py-2 sm:py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-base ${errors.adresse ? 'ring-2 ring-red-500 border-red-500' : ''}`}
               />
               {errors.adresse && <p className="text-red-500 text-xs mt-1">{errors.adresse}</p>}
+            </div>
+
+            <div>
+              <label className="block text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 mb-1 sm:mb-1.5">
+                Commentaire (optionnel)
+              </label>
+              <textarea
+                name="commentaire"
+                value={formData.commentaire}
+                onChange={handleChange}
+                placeholder="Ajoutez un commentaire à votre commande..."
+                rows={2}
+                className="w-full px-3 py-2 sm:py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-base"
+              />
             </div>
 
             <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-xl p-3 sm:p-4 border border-slate-200 dark:border-slate-700">

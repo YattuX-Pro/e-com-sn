@@ -6,11 +6,14 @@ import { Button } from "@/components/ui/button"
 import { Order, ordersApi, PagedResult } from "@/lib/api"
 import { OrderTable } from "@/components/orders/OrderTable"
 import { OrderDialog } from "@/components/orders/OrderDialog"
+import { InternalNotesDialog } from "@/components/orders/InternalNotesDialog"
 
 export default function CommandesPage() {
   const [pagedData, setPagedData] = useState<PagedResult<Order> | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [notesDialogOpen, setNotesDialogOpen] = useState(false)
   const [selected, setSelected] = useState<Order | null>(null)
+  const [notesOrder, setNotesOrder] = useState<Order | null>(null)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState("")
@@ -58,6 +61,23 @@ export default function CommandesPage() {
       }
     } catch (error) {
       console.error('Error updating order status:', error)
+    }
+  }
+
+  const handleEditNotes = (order: Order) => {
+    setNotesOrder(order)
+    setNotesDialogOpen(true)
+  }
+
+  const handleSaveNotes = async (orderId: string, notes: string) => {
+    try {
+      await ordersApi.updateStatus(orderId, selected?.status || "pending", notes)
+      await loadOrders()
+      if (selected?.id === orderId) {
+        setSelected({ ...selected, internalNotes: notes })
+      }
+    } catch (error) {
+      console.error('Error saving notes:', error)
     }
   }
 
@@ -116,7 +136,16 @@ export default function CommandesPage() {
         </CardContent>
       </Card>
 
-      <OrderDialog open={dialogOpen} onOpenChange={setDialogOpen} order={selected} onUpdateStatus={handleUpdateStatus} />
+      <OrderDialog open={dialogOpen} onOpenChange={setDialogOpen} order={selected} onUpdateStatus={handleUpdateStatus} onEditNotes={handleEditNotes} />
+      
+      <InternalNotesDialog 
+        open={notesDialogOpen} 
+        onOpenChange={setNotesDialogOpen} 
+        orderId={notesOrder?.id || ""}
+        orderNumber={notesOrder?.orderId || ""}
+        currentNotes={notesOrder?.internalNotes}
+        onSave={handleSaveNotes}
+      />
     </div>
   )
 }

@@ -17,19 +17,21 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react"
+import { Pencil, Trash2, Key, Power } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface UserTableProps {
   users: User[]
   onEdit: (user: User) => void
   onDelete: (user: User) => void
+  onChangePassword?: (user: User) => void
+  onToggleStatus?: (user: User) => void
   onSearchChange?: (search: string) => void
   onRoleChange?: (role: string) => void
 }
 
 
-export function UserTable({ users, onEdit, onDelete, onSearchChange, onRoleChange }: UserTableProps) {
+export function UserTable({ users, onEdit, onDelete, onChangePassword, onToggleStatus, onSearchChange, onRoleChange }: UserTableProps) {
   const [searchInput, setSearchInput] = useState("")
   const [role, setRole] = useState("all")
   const [userRoles, setUserRoles] = useState<UserRole[]>([])
@@ -114,11 +116,26 @@ export function UserTable({ users, onEdit, onDelete, onSearchChange, onRoleChang
                       </Badge>
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">{formatDate(user.createdAt)}</TableCell>
-                    <TableCell className="text-right space-x-2">
-                      <Button variant="ghost" size="icon" onClick={() => onEdit(user)}>
+                    <TableCell className="text-right space-x-1">
+                      <Button variant="ghost" size="icon" onClick={() => onEdit(user)} title="Modifier">
                         <Pencil className="size-4" />
                       </Button>
-                      <Button variant="ghost" size="icon" onClick={() => onDelete(user)}>
+                      {onChangePassword && (
+                        <Button variant="ghost" size="icon" onClick={() => onChangePassword(user)} title="Changer le mot de passe">
+                          <Key className="size-4 text-amber-500" />
+                        </Button>
+                      )}
+                      {onToggleStatus && (
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => onToggleStatus(user)} 
+                          title={user.status === "active" ? "Désactiver" : "Activer"}
+                        >
+                          <Power className={`size-4 ${user.status === "active" ? "text-green-500" : "text-gray-400"}`} />
+                        </Button>
+                      )}
+                      <Button variant="ghost" size="icon" onClick={() => onDelete(user)} title="Supprimer">
                         <Trash2 className="size-4 text-destructive" />
                       </Button>
                     </TableCell>

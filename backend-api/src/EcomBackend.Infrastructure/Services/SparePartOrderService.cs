@@ -90,7 +90,8 @@ public class SparePartOrderService : ISparePartOrderService
             SparePartReference = sparePart.Reference,
             Quantity = dto.Quantity,
             TotalPrice = sparePart.Price * dto.Quantity,
-            Status = "pending"
+            Status = "pending",
+            Comment = dto.Comment
         };
 
         await _repository.AddAsync(order);
@@ -108,13 +109,15 @@ public class SparePartOrderService : ISparePartOrderService
         return $"SP-{randomString}";
     }
 
-    public async Task<SparePartOrderDto> UpdateStatusAsync(Guid id, string status)
+    public async Task<SparePartOrderDto> UpdateStatusAsync(Guid id, string status, string? internalNotes = null)
     {
         var order = await _repository.GetByIdAsync(id);
         if (order == null)
             throw new Exception("Spare part order not found");
 
         order.Status = status;
+        if (internalNotes != null)
+            order.InternalNotes = internalNotes;
         await _repository.UpdateAsync(order);
         await _unitOfWork.SaveChangesAsync();
 
@@ -142,6 +145,8 @@ public class SparePartOrderService : ISparePartOrderService
             order.Quantity,
             order.TotalPrice,
             order.Status,
+            order.Comment,
+            order.InternalNotes,
             order.CreatedAt
         );
     }

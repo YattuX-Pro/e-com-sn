@@ -59,7 +59,7 @@ public static class SparePartOrderEndpoints
         {
             try
             {
-                var order = await service.UpdateStatusAsync(id, dto.Status);
+                var order = await service.UpdateStatusAsync(id, dto.Status, dto.InternalNotes);
                 return Results.Ok(order);
             }
             catch (Exception ex)

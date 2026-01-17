@@ -65,7 +65,7 @@ export default function CTA() {
               </motion.button>
             </Link>
             
-            <Link href="https://wa.me/221765788887">
+            <Link href="https://wa.me/221765788887" target="_blank" rel="noopener noreferrer">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -101,7 +101,7 @@ export default function CTA() {
                 <circle cx="17" cy="18" r="2"/>
                 <circle cx="7" cy="18" r="2"/>
               </svg>
-              <span className="text-sm">Livraison gratuite</span>
+              <span className="text-sm">Livraison partout au Sénégal</span>
             </div>
             <div className="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -115,6 +115,20 @@ export default function CTA() {
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
               </svg>
               <span className="text-sm">contact.hasilaza@gmail.com</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span className="text-sm">Nous sommes ouverts du lundi au samedi de 9 h à 18 h</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="20" height="14" x="2" y="5" rx="2"/>
+                <line x1="2" x2="22" y1="10" y2="10"/>
+              </svg>
+              <span className="text-sm">Modes de paiement : Virement, Chèque, Wave et Orange Money</span>
             </div>
           </motion.div>
         </motion.div>

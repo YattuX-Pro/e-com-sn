@@ -12,6 +12,8 @@ public record OrderDto(
     int Quantity,
     decimal TotalPrice,
     string Status,
+    string? Comment,
+    string? InternalNotes,
     DateTime CreatedAt
 );
 
@@ -21,9 +23,11 @@ public record CreateOrderDto(
     string CustomerEmail,
     string CustomerAddress,
     Guid ProductId,
-    int Quantity
+    int Quantity,
+    string? Comment = null
 );
 
 public record UpdateOrderDto(
-    string Status
+    string Status,
+    string? InternalNotes = null
 );

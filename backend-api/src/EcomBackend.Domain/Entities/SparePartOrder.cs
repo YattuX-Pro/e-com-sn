@@ -13,4 +13,6 @@ public class SparePartOrder : BaseEntity
     public int Quantity { get; set; }
     public decimal TotalPrice { get; set; }
     public string Status { get; set; } = "pending";
+    public string? Comment { get; set; }
+    public string? InternalNotes { get; set; }
 }

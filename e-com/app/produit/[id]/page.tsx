@@ -21,6 +21,7 @@ interface OrderForm {
   email: string
   adresse: string
   quantite: number
+  commentaire?: string
 }
 
 export default function ProductDetailPage() {
@@ -105,7 +106,8 @@ export default function ProductDetailPage() {
         customerEmail: formData.email,
         customerAddress: formData.adresse,
         productId: product.id,
-        quantity: formData.quantite
+        quantity: formData.quantite,
+        comment: formData.commentaire || null
       })
       setOrderData(formData)
       setShowForm(false)
@@ -223,7 +225,7 @@ export default function ProductDetailPage() {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-slate-900 dark:text-white">Livraison</p>
-                    <p className="text-xs text-slate-500">Gratuite</p>
+                    <p className="text-xs text-slate-500">Partout au Sénégal</p>
                   </div>
                 </div>
               </div>

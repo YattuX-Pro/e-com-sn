@@ -119,7 +119,8 @@ public class OrderService : IOrderService
             ProductName = product.Name,
             Quantity = dto.Quantity,
             TotalPrice = product.Price * dto.Quantity,
-            Status = "pending"
+            Status = "pending",
+            Comment = dto.Comment
         };
 
         await _orderRepository.AddAsync(order);
@@ -137,13 +138,15 @@ public class OrderService : IOrderService
         return $"ID-{randomString}";
     }
 
-    public async Task<OrderDto> UpdateStatusAsync(Guid id, string status)
+    public async Task<OrderDto> UpdateStatusAsync(Guid id, string status, string? internalNotes = null)
     {
         var order = await _orderRepository.GetByIdAsync(id);
         if (order == null)
             throw new Exception("Order not found");
 
         order.Status = status;
+        if (internalNotes != null)
+            order.InternalNotes = internalNotes;
 
         await _orderRepository.UpdateAsync(order);
         await _unitOfWork.SaveChangesAsync();
@@ -171,6 +174,8 @@ public class OrderService : IOrderService
             order.Quantity,
             order.TotalPrice,
             order.Status,
+            order.Comment,
+            order.InternalNotes,
             order.CreatedAt
         );
     }

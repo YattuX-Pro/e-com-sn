@@ -8,6 +8,6 @@ public interface ISparePartOrderService
     Task<IEnumerable<SparePartOrderDto>> GetAllAsync();
     Task<PagedResult<SparePartOrderDto>> GetAllAsync(SparePartOrderFilterParams filterParams);
     Task<SparePartOrderDto> CreateAsync(CreateSparePartOrderDto dto);
-    Task<SparePartOrderDto> UpdateStatusAsync(Guid id, string status);
+    Task<SparePartOrderDto> UpdateStatusAsync(Guid id, string status, string? internalNotes = null);
     Task DeleteAsync(Guid id);
 }

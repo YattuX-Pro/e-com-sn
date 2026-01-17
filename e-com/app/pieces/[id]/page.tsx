@@ -22,6 +22,7 @@ interface OrderForm {
   email: string
   adresse: string
   quantite: number
+  commentaire?: string
 }
 
 export default function SparePartDetailPage() {
@@ -46,6 +47,12 @@ export default function SparePartDetailPage() {
     }
     if (params.id) loadPart()
   }, [params.id])
+
+  useEffect(() => {
+    if (isSuccess) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [isSuccess])
 
   if (loading) {
     return (
@@ -97,7 +104,8 @@ export default function SparePartDetailPage() {
         customerEmail: formData.email,
         customerAddress: formData.adresse,
         sparePartId: part.id,
-        quantity: formData.quantite
+        quantity: formData.quantite,
+        comment: formData.commentaire || null
       })
       setOrderData(formData)
       setShowForm(false)
@@ -278,7 +286,8 @@ function SparePartOrderModal({
     telephone: "",
     email: "",
     adresse: "",
-    quantite: 1
+    quantite: 1,
+    commentaire: ""
   })
   const [submitting, setSubmitting] = useState(false)
 
@@ -297,11 +306,11 @@ function SparePartOrderModal({
   }, [])
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-hidden" onClick={onClose}>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
       <motion.div 
         initial={{ scale: 0.95, opacity: 0 }} 
         animate={{ scale: 1, opacity: 1 }} 
-        className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-2xl border border-slate-200 dark:border-slate-800" 
+        className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-2xl border border-slate-200 dark:border-slate-800 max-h-[90vh] flex flex-col" 
         onClick={e => e.stopPropagation()}
       >
         <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-4 rounded-t-2xl">
@@ -320,7 +329,7 @@ function SparePartOrderModal({
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6">
+        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Nom complet *</label>
@@ -329,7 +338,7 @@ function SparePartOrderModal({
                 required 
                 value={form.nom} 
                 onChange={e => setForm({...form, nom: e.target.value})} 
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
                 placeholder="Votre nom"
               />
             </div>
@@ -340,7 +349,7 @@ function SparePartOrderModal({
                 required 
                 value={form.telephone} 
                 onChange={e => setForm({...form, telephone: e.target.value})} 
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
                 placeholder="+221 7X XXX XX XX"
               />
             </div>
@@ -350,7 +359,7 @@ function SparePartOrderModal({
                 type="email" 
                 value={form.email} 
                 onChange={e => setForm({...form, email: e.target.value})} 
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
                 placeholder="votre@email.com"
               />
             </div>
@@ -363,7 +372,7 @@ function SparePartOrderModal({
                 required 
                 value={form.quantite} 
                 onChange={e => setForm({...form, quantite: parseInt(e.target.value) || 1})} 
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
               />
             </div>
           </div>
@@ -375,8 +384,19 @@ function SparePartOrderModal({
               required 
               value={form.adresse} 
               onChange={e => setForm({...form, adresse: e.target.value})} 
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
               placeholder="Votre adresse complète"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Commentaire (optionnel)</label>
+            <textarea
+              value={form.commentaire} 
+              onChange={e => setForm({...form, commentaire: e.target.value})} 
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all resize-none" 
+              placeholder="Ajoutez un commentaire à votre commande..."
+              rows={2}
             />
           </div>
 

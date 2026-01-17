@@ -34,6 +34,7 @@ export interface CreateOrder {
   customerAddress: string
   productId: string
   quantity: number
+  comment?: string | null
 }
 
 export interface Order {
@@ -128,12 +129,18 @@ export interface CreateSparePartOrder {
   customerAddress: string
   sparePartId: string
   quantity: number
+  comment?: string | null
 }
 
 export const sparePartsApi = {
   async getAll(): Promise<SparePart[]> {
     const response = await fetch(`${API_BASE_URL}/spareparts/active`)
     if (!response.ok) throw new Error('Failed to fetch spare parts')
+    return response.json()
+  },
+  async getLatest(count: number = 10): Promise<SparePart[]> {
+    const response = await fetch(`${API_BASE_URL}/spareparts/latest?count=${count}`)
+    if (!response.ok) throw new Error('Failed to fetch latest spare parts')
     return response.json()
   },
   async getById(id: string): Promise<SparePart> {

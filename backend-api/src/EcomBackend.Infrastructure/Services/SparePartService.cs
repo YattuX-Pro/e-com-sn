@@ -26,6 +26,16 @@ public class SparePartService
         return parts.Select(MapToDto);
     }
 
+    public async Task<IEnumerable<SparePartDto>> GetLatestAsync(int count = 10)
+    {
+        var parts = await _context.SpareParts
+            .Where(p => p.IsActive)
+            .OrderByDescending(p => p.CreatedAt)
+            .Take(count)
+            .ToListAsync();
+        return parts.Select(MapToDto);
+    }
+
     public async Task<SparePartDto?> GetByIdAsync(Guid id)
     {
         var part = await _context.SpareParts.FindAsync(id);

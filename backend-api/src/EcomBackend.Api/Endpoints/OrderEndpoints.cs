@@ -75,7 +75,7 @@ public static class OrderEndpoints
         {
             try
             {
-                var order = await orderService.UpdateStatusAsync(id, dto.Status);
+                var order = await orderService.UpdateStatusAsync(id, dto.Status, dto.InternalNotes);
                 return Results.Ok(order);
             }
             catch (Exception ex)

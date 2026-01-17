@@ -8,6 +8,6 @@ public interface IOrderService
     Task<IEnumerable<OrderDto>> GetAllAsync();
     Task<PagedResult<OrderDto>> GetAllAsync(OrderFilterParams filterParams);
     Task<OrderDto> CreateAsync(CreateOrderDto createOrderDto);
-    Task<OrderDto> UpdateStatusAsync(Guid id, string status);
+    Task<OrderDto> UpdateStatusAsync(Guid id, string status, string? internalNotes = null);
     Task DeleteAsync(Guid id);
 }
