@@ -6,7 +6,7 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ productName }: BreadcrumbProps) {
   return (
-    <div className="pt-20 pb-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div className="pt-28 pb-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4">
         <nav className="flex items-center gap-2 text-sm">
           <Link href="/" className="text-slate-500 hover:text-blue-500 transition-colors">Accueil</Link>
