@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import ImageWithFallback from "@/components/ImageWithFallback"
 
 interface ProductGalleryProps {
   images: string[]
@@ -39,13 +39,11 @@ export default function ProductGallery({ images, productName, isBestSeller }: Pr
               transition={{ duration: 0.3 }}
               className="absolute inset-0"
             >
-              <Image
+              <ImageWithFallback
                 src={images[selectedImage]}
                 alt={productName}
                 fill
                 className="object-cover"
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIhAAAgEDBAMBAAAAAAAAAAAAAQIDAAQRBRIhMQYTQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABkRAAIDAQAAAAAAAAAAAAAAAAECAAMRIf/aAAwDAQACEQMRAD8Aw2w8h1C0sILWOO3KwxrGC0ZJIUAcnPfFSdR1e+1GRXvLl5mUYXdgAD8AHAooqkTYxwTFuoMTP/Z"
                 priority
               />
             </motion.div>
@@ -102,7 +100,7 @@ export default function ProductGallery({ images, productName, isBestSeller }: Pr
                 : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
             }`}
           >
-            <Image src={img} alt="" fill className="object-cover" />
+            <ImageWithFallback src={img} alt="" fill className="object-cover" />
           </button>
         ))}
       </div>

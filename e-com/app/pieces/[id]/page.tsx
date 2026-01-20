@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { sparePartsApi, SparePart, sparePartOrdersApi } from "@/lib/api"
 import { getImageUrl } from "@/lib/config"
 import { Button } from "@/components/ui/button"
-import Image from "next/image"
+import ImageWithFallback from "@/components/ImageWithFallback"
 import Link from "next/link"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
@@ -316,7 +316,7 @@ function SparePartOrderModal({
         <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-4 rounded-t-2xl">
           <div className="flex items-center gap-4">
             <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-white/20 flex-shrink-0">
-              <Image src={getImageUrl(part.image)} alt={part.name} fill className="object-cover" />
+              <ImageWithFallback src={getImageUrl(part.image)} alt={part.name} fill className="object-cover" />
             </div>
             <div className="flex-1 min-w-0">
               <h2 className="font-bold text-white text-lg truncate">{part.name}</h2>

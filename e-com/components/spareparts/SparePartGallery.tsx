@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import ImageWithFallback from "@/components/ImageWithFallback"
 
 interface SparePartGalleryProps {
   images: string[]
@@ -38,12 +38,13 @@ export default function SparePartGallery({ images, partName, stock }: SparePartG
               transition={{ duration: 0.3 }}
               className="absolute inset-0"
             >
-              <Image
+              <ImageWithFallback
                 src={images[selectedImage]}
                 alt={partName}
                 fill
                 className="object-contain p-4"
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                objectFit="contain"
               />
             </motion.div>
           </AnimatePresence>
@@ -101,7 +102,7 @@ export default function SparePartGallery({ images, partName, stock }: SparePartG
                 : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
             }`}
           >
-            <Image src={img} alt="" fill className="object-cover" sizes="80px" />
+            <ImageWithFallback src={img} alt="" fill className="object-cover" sizes="80px" />
           </button>
         ))}
       </div>

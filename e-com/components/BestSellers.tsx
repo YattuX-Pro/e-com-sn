@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { formatPrice } from "@/lib/data"
 import { productsApi, Product } from "@/lib/api"
-import Image from "next/image"
+import ImageWithFallback from "@/components/ImageWithFallback"
 import Link from "next/link"
 import { getImageUrl } from "@/lib/config"
 
@@ -102,7 +102,7 @@ export default function BestSellers() {
               >
                 <div className="bg-white dark:bg-slate-900 rounded-xl overflow-hidden border-2 border-blue-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-slate-700 transition-all hover:shadow-lg h-full flex flex-col">
                   <div className="relative aspect-[3/2] overflow-hidden bg-slate-100 dark:bg-slate-800">
-                    <Image
+                    <ImageWithFallback
                       src={getImageUrl(product.image)}
                       alt={product.name}
                       fill

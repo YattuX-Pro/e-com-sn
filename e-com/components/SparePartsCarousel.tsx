@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { formatPrice } from "@/lib/data"
 import { sparePartsApi, SparePart } from "@/lib/api"
-import Image from "next/image"
+import ImageWithFallback from "@/components/ImageWithFallback"
 import Link from "next/link"
 import { getImageUrl } from "@/lib/config"
 
@@ -140,7 +140,7 @@ export default function SparePartsCarousel() {
               >
                 <div className="bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-lg h-full flex flex-col">
                   <div className="relative aspect-square overflow-hidden bg-white dark:bg-slate-900">
-                    <Image
+                    <ImageWithFallback
                       src={getImageUrl(part.image)}
                       alt={part.name}
                       fill
