@@ -171,6 +171,8 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                   onChange={handleChange}
                   placeholder="Votre nom"
                   className={`h-10 sm:h-11 text-base ${errors.nom ? 'ring-2 ring-red-500 border-red-500' : ''}`}
+                  onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Veuillez remplir ce champ')}
+                  onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
                 />
                 {errors.nom && <p className="text-red-500 text-xs mt-1">{errors.nom}</p>}
               </div>
@@ -186,6 +188,8 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                   onChange={handleChange}
                   placeholder="+221 765788887"
                   className={`h-10 sm:h-11 text-base ${errors.telephone ? 'ring-2 ring-red-500 border-red-500' : ''}`}
+                  onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Veuillez remplir ce champ')}
+                  onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
                 />
                 {errors.telephone && <p className="text-red-500 text-xs mt-1">{errors.telephone}</p>}
               </div>
@@ -200,6 +204,8 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                   onChange={handleChange}
                   placeholder="votre@email.com"
                   className={`h-10 sm:h-11 text-base ${errors.email ? 'ring-2 ring-red-500 border-red-500' : ''}`}
+                  onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Veuillez remplir ce champ')}
+                  onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
               </div>
@@ -224,6 +230,17 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                     min={1}
                     max={product.stock}
                     className="flex-1 h-10 sm:h-11 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium text-base"
+                    onInvalid={(e) => {
+                      const input = e.target as HTMLInputElement
+                      if (input.validity.rangeOverflow) {
+                        input.setCustomValidity(`Stock disponible: ${product.stock}`)
+                      } else if (input.validity.rangeUnderflow) {
+                        input.setCustomValidity('La quantité doit être au moins 1')
+                      } else {
+                        input.setCustomValidity('Veuillez entrer une quantité valide')
+                      }
+                    }}
+                    onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
                   />
                   <button
                     type="button"
@@ -248,6 +265,8 @@ export default function OrderFormModal({ product, isOpen, onClose, onSubmit }: O
                 placeholder="Votre adresse complète"
                 rows={2}
                 className={`w-full px-3 py-2 sm:py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-base ${errors.adresse ? 'ring-2 ring-red-500 border-red-500' : ''}`}
+                onInvalid={(e) => (e.target as HTMLTextAreaElement).setCustomValidity('Veuillez remplir ce champ')}
+                onInput={(e) => (e.target as HTMLTextAreaElement).setCustomValidity('')}
               />
               {errors.adresse && <p className="text-red-500 text-xs mt-1">{errors.adresse}</p>}
             </div>

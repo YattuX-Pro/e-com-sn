@@ -16,7 +16,7 @@ export default function SparePartSearchBar({ value, onChange }: SparePartSearchB
         placeholder="Rechercher une pièce détachée..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full pl-12 pr-12 py-3 sm:py-4 rounded-xl sm:rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
+        className="w-full pl-12 pr-12 py-3 sm:py-4 rounded-xl sm:rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
       />
       {value && (
         <button

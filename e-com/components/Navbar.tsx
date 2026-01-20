@@ -79,12 +79,12 @@ export default function Navbar() {
                 +221 765788887
               </button>
             </Link>
-            <Link href="/produits">
+            <Link href="/#partenaires">
               <button 
                 className="px-5 py-2.5 rounded-full text-sm font-semibold text-slate-900 transition-all duration-200 hover:scale-105"
                 style={{ backgroundColor: 'hsl(48, 96%, 53%)' }}
               >
-                Commander
+                Nos partenaires
               </button>
             </Link>
           </div>
@@ -152,12 +152,12 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="pt-4 mt-2 border-t border-slate-200 dark:border-slate-800">
-                <Link href="/produits" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href="/#partenaires" onClick={() => setIsMobileMenuOpen(false)}>
                   <button 
                     className="w-full py-3 rounded-full text-sm font-semibold text-slate-900 transition-all"
                     style={{ backgroundColor: 'hsl(48, 96%, 53%)' }}
                   >
-                    Commander maintenant
+                    Nos partenaires
                   </button>
                 </Link>
               </div>

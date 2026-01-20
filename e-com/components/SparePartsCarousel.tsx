@@ -88,10 +88,10 @@ export default function SparePartsCarousel() {
           </motion.div>
           
           <h2 className="text-2xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-3 md:mb-6 px-4">
-            Nos <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent">pièces détachées</span>
+            <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent">Pièces détachées</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-sm md:text-base lg:text-lg leading-relaxed px-4">
-            Découvrez notre sélection de pièces détachées de qualité pour l'entretien et la réparation de vos tricycles.
+            Pièces détachées de qualité disponibles pour l'entretien et la réparation de vos tricycles.
           </p>
         </motion.div>
       </div>
@@ -101,6 +101,8 @@ export default function SparePartsCarousel() {
         className="relative z-10 max-w-6xl mx-auto overflow-hidden"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setIsPaused(false)}
       >
         {/* Masque de dégradé sur les côtés pour effet infini */}
         <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white dark:from-slate-900 to-transparent z-10 pointer-events-none" />
@@ -117,7 +119,15 @@ export default function SparePartsCarousel() {
               repeatType: "loop",
             },
           }}
-          style={{ width: 'max-content' }}
+          style={{ 
+            width: 'max-content',
+            willChange: 'transform',
+            transform: 'translate3d(0, 0, 0)',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            perspective: 1000,
+            WebkitPerspective: 1000,
+          }}
         >
           {duplicatedParts.map((part, index) => (
             <div

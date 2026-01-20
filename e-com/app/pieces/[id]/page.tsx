@@ -340,6 +340,8 @@ function SparePartOrderModal({
                 onChange={e => setForm({...form, nom: e.target.value})} 
                 className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
                 placeholder="Votre nom"
+                onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Veuillez remplir ce champ')}
+                onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
               />
             </div>
             <div>
@@ -351,6 +353,8 @@ function SparePartOrderModal({
                 onChange={e => setForm({...form, telephone: e.target.value})} 
                 className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
                 placeholder="+221 7X XXX XX XX"
+                onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Veuillez remplir ce champ')}
+                onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
               />
             </div>
             <div>
@@ -361,6 +365,15 @@ function SparePartOrderModal({
                 onChange={e => setForm({...form, email: e.target.value})} 
                 className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
                 placeholder="votre@email.com"
+                onInvalid={(e) => {
+                  const input = e.target as HTMLInputElement
+                  if (input.validity.typeMismatch) {
+                    input.setCustomValidity('Veuillez entrer une adresse email valide')
+                  } else {
+                    input.setCustomValidity('Veuillez remplir ce champ')
+                  }
+                }}
+                onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
               />
             </div>
             <div>
@@ -373,6 +386,17 @@ function SparePartOrderModal({
                 value={form.quantite} 
                 onChange={e => setForm({...form, quantite: parseInt(e.target.value) || 1})} 
                 className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
+                onInvalid={(e) => {
+                  const input = e.target as HTMLInputElement
+                  if (input.validity.rangeOverflow) {
+                    input.setCustomValidity(`Stock disponible: ${part.stock}`)
+                  } else if (input.validity.rangeUnderflow) {
+                    input.setCustomValidity('La quantité doit être au moins 1')
+                  } else {
+                    input.setCustomValidity('Veuillez entrer une quantité valide')
+                  }
+                }}
+                onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
               />
             </div>
           </div>
@@ -386,6 +410,8 @@ function SparePartOrderModal({
               onChange={e => setForm({...form, adresse: e.target.value})} 
               className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" 
               placeholder="Votre adresse complète"
+              onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Veuillez remplir ce champ')}
+              onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
             />
           </div>
 

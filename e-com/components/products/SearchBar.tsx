@@ -22,7 +22,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
         placeholder="Rechercher..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-10 sm:h-11 pl-10 sm:pl-11 pr-4 w-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 rounded-xl text-sm"
+        className="h-10 sm:h-11 pl-10 sm:pl-11 pr-4 w-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 rounded-xl text-base"
       />
     </div>
   )
